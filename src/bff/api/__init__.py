@@ -3,6 +3,9 @@ import os
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 from flask_swagger import swagger
 
+def registrar_handlers():
+    import bff.aplicacion
+
 # Identifica el directorio base
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -18,6 +21,7 @@ def create_app(configuracion={}):
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['TESTING'] = configuracion.get('TESTING')
 
+    registrar_handlers()
     # Importa Blueprints
     from . import compania
     from . import contrato

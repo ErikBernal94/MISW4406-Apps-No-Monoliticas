@@ -46,6 +46,8 @@ def create_app(configuracion={}):
 
     from aeroalpes.config.db import db
 
+    app.run(debug=True, port=5002)
+
     importar_modelos_alchemy()
     registrar_handlers()
 

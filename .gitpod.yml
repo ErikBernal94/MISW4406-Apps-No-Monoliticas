@@ -14,8 +14,8 @@ tasks:
   - name: Crear imagenes Docker
     init: > 
       docker build . -f bff.Dockerfile -t PdaAlpes/BFF &&
-      docker build . -f compania.Dockerfile -t  PdaAlpes/BFF &&
-      docker build . -f contrato.Dockerfile -t  PdaAlpes/BFF
+      docker build . -f compania.Dockerfile -t  PdaAlpes/compania &&
+      docker build . -f contrato.Dockerfile -t  PdaAlpes/contrato
       gp sync-done images
   - name: Crear folder para datos y asigna permisos
     init: > 

@@ -49,6 +49,8 @@ def create_app(configuracion={}):
     importar_modelos_alchemy()
     registrar_handlers()
 
+    app.run(debug=True, port=5001)
+
     with app.app_context():
         db.create_all()
         if not app.config.get('TESTING'):
