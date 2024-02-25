@@ -100,7 +100,7 @@ services:
   bff:
     container_name: bff
     hostname: bff
-    image: PdaAlpes/BFF 
+    image: pda-alpes/bff 
     networks:
       - pulsar
     depends_on:
@@ -110,7 +110,7 @@ services:
     ports:
       - "5000:5000"
   compania:
-    image: "PdaAlpes/compania"
+    image: "pda-alpes/compania"
     container_name: compania
     hostname: compania
     depends_on:
@@ -123,7 +123,7 @@ services:
       - "5001:5001"
 
   contrato:
-    image: "PdaAlpes/contrato"
+    image: "pda-alpes/contrato"
     container_name: contrato
     hostname: contrato
     depends_on:

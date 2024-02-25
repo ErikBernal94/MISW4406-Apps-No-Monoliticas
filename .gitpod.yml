@@ -13,9 +13,9 @@ tasks:
     command: pip install -r requirements.txt && pip install -r compania-requirements.txt && pip install -r contrato-requirements.txt && pip install -r bff-requirements.txt
   - name: Crear imagenes Docker
     init: > 
-      docker build . -f bff.Dockerfile -t PdaAlpes/BFF &&
-      docker build . -f compania.Dockerfile -t  PdaAlpes/compania &&
-      docker build . -f contrato.Dockerfile -t  PdaAlpes/contrato
+      docker build . -f bff.Dockerfile -t pda-alpes/bff &&
+      docker build . -f compania.Dockerfile -t  pda-alpes/compania &&
+      docker build . -f contrato.Dockerfile -t  pda-alpes/contrato
       gp sync-done images
   - name: Crear folder para datos y asigna permisos
     init: > 
