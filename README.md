@@ -29,6 +29,12 @@ Las decisiones de arquitectura que serán validadas son:
 ## AVRO
 Se decidió utilizar AVRO porque proporciona una forma eficiente y compacta de serializar datos. Soporta la evolución de esquemas de datos. Esto significa que puedes cambiar la estructura de los datos sin perder la compatibilidad hacia atrás o adelante. Esto es crucial en sistemas distribuidos donde los datos pueden ser producidos y consumidos por diferentes versiones de la misma aplicación. El versionamiento de esquemas es una característica crucial en entornos donde se utilizan formatos de datos serializados y Avro tiene un sistema solido para manejarlo, garantizando una mayor flexibilidad y mantenibilidad en tus sistemas distribuidos.
 
+## Event Sourcing
+
+ Event sourcing es una arquitectura que se basa en la propagación de eventos o efectos secundarios generados por los servicios a través de eventos de integración. Estos eventos representan los cambios ocurridos en el dominio de la aplicación. Para implementar esto, se utilizan Event Stores, que son registros inmutables donde se persisten y distribuyen los eventos generados.
+ Se decide usar Event Sourcing pues se puede registrar todos los eventos que han afectado el estado de la aplicación y tener un buen track de los mismos, siendo muy util para reconstruir el estado de la aplicación y ayuda a restaurar la app en caso de fallos pues se tiene un buen historial para entender los errores y corregirlos.
+
+
 ## Estructura del proyecto
 
 El proyecto esta dividido en carpetas donde se van a alojar acada uno de los siguientes microservicios
