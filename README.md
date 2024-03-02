@@ -37,7 +37,7 @@ El proyecto esta dividido en carpetas donde se van a alojar acada uno de los sig
 - Compania
 - Contrato
 
-A su vez, cada una de las soluciones tendra cada una de las siguientes capas con el fin de seuir la filosofia de diseño guiado por el dominio:
+A su vez, cada una de las soluciones tendrá cada una de las siguientes capas con el fin de seguir la filosofía de diseño guiado por el dominio:
 
 - Dominio
 - Infrastructura
@@ -47,14 +47,14 @@ A su vez, cada una de las soluciones tendra cada una de las siguientes capas con
 
 Cabe aclarar que en algunos casos no se tendrán todas las capas según sea necesario para cada uno de los microservicios.
 
-Por otra parte es importante mencionar las implementaciones mas importantes de cada una de estas capas:
+Por otra parte es importante mencionar las implementaciones más importantes de cada una de estas capas:
 
 - Dominio: Entidades, objetos de valor, fabricas e interfaces de repositorios.
 - Infraestructura: Implementacion de repositorios, consumidores y despachadores (para la comunicación basada en eventos).
 - Aplicacion: Handlers, Servicios, queries y comandos
 - Aplicacion: APIs y endpoints de acceso.
 
-Por último, cada uno de los microservicios va a estar alojado en un contenedoir de docker, por lo que se crean los archivos correspondientes. Para la administracion de los contenedores se crea un arechivo docker-compose.yml en donde se especifican las dependencias y configuraciones generales de los contenedores y del broker de eventos (pulsar).
+Por último, cada uno de los microservicios va a estar alojado en un contenedor de docker, por lo que se crean los archivos correspondientes. Para la administración de los contenedores se crea un archivo docker-compose.yml en donde se especifican las dependencias y configuraciones generales de los contenedores y del broker de eventos (pulsar).
 
 ### Comandos para ejecutar el proyecto
 ```

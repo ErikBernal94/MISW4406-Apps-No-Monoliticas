@@ -7,10 +7,10 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import compania.aplicacion
+    import contrato.aplicacion
 
 def importar_modelos_alchemy():
-    import compania.infraestructura.dto
+    import contrato.infraestructura.dto
 
 def comenzar_consumidor():
     """
@@ -20,13 +20,13 @@ def comenzar_consumidor():
     """
 
     import threading
-    import compania.infraestructura.consumidores as companias
+    import contrato.infraestructura.consumidores as contratos
 
     # Suscripción a eventos
-    threading.Thread(target=companias.suscribirse_a_eventos).start()
+    threading.Thread(target=contratos.suscribirse_a_eventos).start()
 
     # Suscripción a comandos
-    threading.Thread(target=companias.suscribirse_a_comandos).start()
+    threading.Thread(target=contratos.suscribirse_a_comandos).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
@@ -41,10 +41,10 @@ def create_app(configuracion={}):
     app.config['TESTING'] = configuracion.get('TESTING')
 
      # Inicializa la DB
-    from aeroalpes.config.db import init_db
+    from contrato.config.db import init_db
     init_db(app)
 
-    from aeroalpes.config.db import db
+    from contrato.config.db import db
 
     app.run(debug=True, port=5002)
 
@@ -60,7 +60,7 @@ def create_app(configuracion={}):
     def spec():
         swag = swagger(app)
         swag['info']['version'] = "1.0"
-        swag['info']['title'] = "My API"
+        swag['info']['title'] = "My API1"
         return jsonify(swag)
 
     @app.route("/health")

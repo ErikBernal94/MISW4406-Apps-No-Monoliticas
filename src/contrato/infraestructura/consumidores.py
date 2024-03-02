@@ -3,7 +3,7 @@ from pulsar.schema import *
 import uuid
 import time
 import logging
-import traceack
+import traceback
 
 from contrato.infraestructura.schema.v1.eventos import EventoContratoCreada
 from contrato.infraestructura.schema.v1.comandos import ComandoCrearContrato

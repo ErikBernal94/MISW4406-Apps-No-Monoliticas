@@ -3,7 +3,7 @@ from pulsar.schema import *
 import uuid
 import time
 import logging
-import traceack
+import traceback
 
 from compania.infraestructura.schema.v1.eventos import EventoCompaniaCreada
 from compania.infraestructura.schema.v1.comandos import ComandoCrearCompania
