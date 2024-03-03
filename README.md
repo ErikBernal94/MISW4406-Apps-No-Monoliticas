@@ -42,6 +42,7 @@ El proyecto esta dividido en carpetas donde se van a alojar acada uno de los sig
 - BFF
 - Compania
 - Contrato
+- Propiedad
 
 A su vez, cada una de las soluciones tendrá cada una de las siguientes capas con el fin de seguir la filosofía de diseño guiado por el dominio:
 
@@ -103,6 +104,18 @@ python src/contrato/main.py
 Creacion de la imagen docker:
 ```
 docker build . -f contrato.Dockerfile -t contrato/flask
+```
+
+###  Microservicio Propiedad
+
+Ejecutar aplicación
+```
+flask --app src/propiedad/api run
+```
+
+Creacion de la imagen docker:
+```
+docker build . -f propiedad.Dockerfile -t propiedad/flask
 ```
 
 ### Docker compose

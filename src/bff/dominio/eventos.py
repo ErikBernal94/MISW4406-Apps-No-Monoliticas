@@ -14,3 +14,8 @@ class ContratoRegistrado(EventoDominio):
     id_contrato: uuid.UUID = None
     estado_contrato: str = None
     tipo_contrato: str = None
+@dataclass
+class PropiedadRegistrada(EventoDominio):
+    id_propiedad: uuid.UUID = None
+    descripcion_propiedad: str = None
+    tipo_propiedad: str = None

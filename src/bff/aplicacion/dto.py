@@ -12,3 +12,9 @@ class ContratoDTO(DTO):
     tipo_contrato: str = field(default_factory=str)
     estado_contrato: str = field(default_factory=str)
     id_contrato: str = field(default_factory=str)
+
+@dataclass(frozen=True)
+class PropiedadDTO(DTO):
+    tipo_propiedad: str = field(default_factory=str)
+    estado_propiedad: str = field(default_factory=str)
+    id_propiedad: str = field(default_factory=str)

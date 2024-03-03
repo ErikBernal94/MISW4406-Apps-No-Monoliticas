@@ -58,3 +58,25 @@ class Despachador:
         )
         comando_integracion = ComandoCrearContrato(data=payload)
         self._publicar_mensaje_contrato(comando_integracion, topico, AvroSchema(ComandoCrearContrato))
+
+    def _publicar_mensaje_propiedad(self, mensaje, topico, schema):
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        publicador = cliente.create_producer(topico, schema=AvroSchema(EventoPropiedadCreada))
+        publicador.send(mensaje)
+        cliente.close()
+
+    def publicar_evento_propiedad(self, evento, topico):
+        # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
+        payload = PropiedadCreadaPayload(
+            id_propiedad=str(evento.id_contrato),
+            direccion=str(evento.direccion)
+        )
+        evento_integracion = EventoPropiedadCreada(data=payload)
+        self._publicar_mensaje_propiedad(evento_integracion, topico, AvroSchema(EventoPropiedadCreada))
+
+    def publicar_comando_propiedad(self, comando, topico):
+        # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
+        payload = ComandoCrearPropiedadPayload(
+        )
+        comando_integracion = ComandoCrearPropiedad(data=payload)
+        self._publicar_mensaje_propiedad(comando_integracion, topico, AvroSchema(ComandoCrearPropiedad))

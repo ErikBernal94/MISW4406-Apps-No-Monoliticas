@@ -57,4 +57,30 @@ class MapeadorContrato(RepMap):
         return contrato
 
 
+class MapeadorPropiedadDTOJson(AppMap):
+    def externo_a_dto(self, externo: dict) -> PropiedadDTO:
+        propiedad_dto = PropiedadDTO(tipo_propiedad=externo.tipo_propiedad, descripcion_propiedad=externo.descripcion_propiedad, id=externo.id)
+        return propiedad_dto
+
+    def dto_a_externo(self, dto: PropiedadDTO) -> dict:
+        return dto.__dict__
+
+class MapeadorPropiedad(RepMap):
+
+    def obtener_tipo(self) -> type:
+        return Propiedad.__class__
+
+    def entidad_a_dto(self, entidad: Propiedad) -> PropiedadDTO:
+
+        tipo = entidad.tipo_propiedad
+        descripcion = entidad.descripcion_propiedad
+        _id = str(entidad.id)
+
+        return PropiedadDTO(tipo_propiedad=tipo, descripcion_contrato=descripcion, id= _id)
+
+    def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
+        propiedad = Propiedad(tipo_propiedad=dto.tipo_propiedad, descripcion_propiedad=dto.descripcion_propiedad, id=dto.id)
+        return contrato
+
+
 

@@ -22,3 +22,11 @@ class _FabricaContrato(Fabrica):
         else:
             contrato: Contrato = mapeador.dto_a_entidad(obj)
             return contrato
+@dataclass
+class _FabricaPropiedad(Fabrica):
+    def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
+        if isinstance(obj, Entidad):
+            return mapeador.entidad_a_dto(obj)
+        else:
+            propiedad: Propiedad = mapeador.dto_a_entidad(obj)
+            return propiedad
