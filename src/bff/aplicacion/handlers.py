@@ -15,5 +15,12 @@ class HandlerContratoIntegracion(Handler):
         despachador = Despachador()
         despachador.publicar_evento_contrato(evento, 'eventos-contrato')
 
+class HandlerPropiedadIntegracion(Handler):
+
+    @staticmethod
+    def handle_propiedad_creada(evento):
+        despachador = Despachador()
+        despachador.publicar_evento_propiedad(evento, 'eventos-propiedad')
+
 
     
