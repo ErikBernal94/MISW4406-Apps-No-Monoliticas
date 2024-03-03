@@ -23,11 +23,8 @@ class CrearPropiedadHandler(CrearContratoBaseHandler):
         despachador = Despachador()
         despachador.publicar_evento_contrato(contrato_dto, 'eventos-contrato')
 
-        
-
 
 @comando.register(CrearPropiedad)
 def ejecutar_comando_crear_propiedad(comando: CrearPropiedad):
     handler = CrearContratoHandler()
     handler.handle(comando)
-    

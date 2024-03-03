@@ -21,6 +21,3 @@ class HandlerPropiedadIntegracion(Handler):
     def handle_propiedad_creada(evento):
         despachador = Despachador()
         despachador.publicar_evento_propiedad(evento, 'eventos-propiedad')
-
-
-    

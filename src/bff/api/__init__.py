@@ -22,6 +22,9 @@ def create_app(configuracion={}):
     app.config['TESTING'] = configuracion.get('TESTING')
 
     registrar_handlers()
+
+    app.run(debug=True, port=5000)
+
     # Importa Blueprints
     from . import compania
     from . import contrato

@@ -7,8 +7,8 @@ db = None
 DB_USERNAME = os.getenv('DB_USERNAME', default="root")
 DB_PASSWORD = os.getenv('DB_PASSWORD', default="adminseguro")
 DB_HOSTNAME = os.getenv('DB_HOSTNAME', default="localhost")
-DB_PORT = os.getenv('DB_PORT', default=3308)
-DB_NAME = os.getenv('DB_NAME', default="contrato")
+DB_PORT = os.getenv('DB_PORT', default=3309)
+DB_NAME = os.getenv('DB_NAME', default="propiedad")
 
 class DatabaseConfigException(Exception):
     def __init__(self, message='Configuration file is Null or malformed'):
