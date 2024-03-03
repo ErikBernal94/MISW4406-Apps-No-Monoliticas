@@ -8,6 +8,6 @@ Base = db.declarative_base()
 
 class Compania(db.Model):
     __tablename__ = "companias"
-    id = db.Column(db.Integer, primary_key=True)
-    correo_electronico = db.Column(db.String(255), nullable=True)
-    direccion = db.Column(db.String(255), nullable=True)
+    id = db.Column(db.String, primary_key=True)
+    correo_electronico = db.Column(db.String, nullable=True)
+    direccion = db.Column(db.String, nullable=True)

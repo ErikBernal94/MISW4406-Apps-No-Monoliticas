@@ -41,11 +41,7 @@ def create_app(configuracion={}):
     app.config['TESTING'] = configuracion.get('TESTING')
 
      # Inicializa la DB
-    from compania.config.db import init_db, database_connection
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = database_connection(configuracion, basedir=basedir)
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    from compania.config.db import init_db
     init_db(app)
 
     from compania.config.db import db

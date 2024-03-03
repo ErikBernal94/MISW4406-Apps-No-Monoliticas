@@ -1,6 +1,6 @@
 from contrato.seedwork.dominio.repositorios import Mapeador
-from contrato.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
-from contrato.dominio.entidades import Contrato
+from contrato.modulos.contrato.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
+from contrato.modulos.contrato.dominio.entidades import Contrato
 from .dto import Contrato as ContratoDTO
 
 class MapeadorContrato(Mapeador):

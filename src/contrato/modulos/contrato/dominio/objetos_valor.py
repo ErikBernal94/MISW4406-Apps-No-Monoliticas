@@ -10,3 +10,4 @@ class EstadoContrato(Enum):
 class TipoContrato(Enum):
     ARRENDAMIENTO = "arrendamiento"
     VENTA = "venta"
+
