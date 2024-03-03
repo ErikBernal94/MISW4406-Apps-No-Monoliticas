@@ -23,8 +23,8 @@ class Despachador:
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
         payload = PropiedadCreadaPayload(
             id_propiedad=str(evento.id_propiedad), 
-            correo_electronico=str(evento.correo_electronico), 
-            direccion=str(evento.direccion) 
+            descripcion_propiedad=str(evento.descripcion_propiedad), 
+            tipo_propiedad=str(evento.tipo_propiedad) 
         )
         evento_integracion = EventoPropiedadCreada(data=payload)
         self._publicar_mensaje(evento_integracion, topico, AvroSchema(EventoPropiedadCreada))

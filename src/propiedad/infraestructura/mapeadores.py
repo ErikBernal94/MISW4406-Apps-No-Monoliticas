@@ -1,5 +1,4 @@
 from propiedad.seedwork.dominio.repositorios import Mapeador
-from propiedad.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
 from propiedad.dominio.entidades import Propiedad
 from .dto import Propiedad as PropiedadDTO
 

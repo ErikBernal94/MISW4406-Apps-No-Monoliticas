@@ -28,10 +28,12 @@ def create_app(configuracion={}):
     # Importa Blueprints
     from . import compania
     from . import contrato
+    from . import propiedad
 
     # Registro de Blueprints
     app.register_blueprint(compania.bp)
     app.register_blueprint(contrato.bp)
+    app.register_blueprint(propiedad.bp)
 
     @app.route("/spec")
     def spec():

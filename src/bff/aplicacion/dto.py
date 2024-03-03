@@ -16,5 +16,5 @@ class ContratoDTO(DTO):
 @dataclass(frozen=True)
 class PropiedadDTO(DTO):
     tipo_propiedad: str = field(default_factory=str)
-    estado_propiedad: str = field(default_factory=str)
+    descripcion_propiedad: str = field(default_factory=str)
     id_propiedad: str = field(default_factory=str)

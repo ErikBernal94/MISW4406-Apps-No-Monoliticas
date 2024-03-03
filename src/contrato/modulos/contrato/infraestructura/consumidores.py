@@ -25,11 +25,6 @@ def suscribirse_a_eventos():
             mensaje = consumidor.receive()
             print(f'Evento recibido: {mensaje.value().data}')
             consumidor.acknowledge(mensaje)
-            contrato: Contrato = _FabricaContrato.crear_objeto(mensaje.value().data, MapeadorContrato())
-            contrato.registrar_contrato(contrato)
-            movimiento: MovimientoInmobiliario = _FabricaMovimientoInmobiliario.crear_objeto(mensaje.value().data, MapeadorMovimiento())
-            movimiento.registrar_movimiento(movimiento)
-                 
 
         cliente.close()
     except:

@@ -1,6 +1,5 @@
 from propiedad.config.db import db
 from propiedad.dominio.repositorios import RepositorioPropiedads
-from propiedad.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
 from propiedad.dominio.entidades import Proveedor, Aeropuerto, Propiedad
 from propiedad.dominio.fabricas import FabricaPropiedads
 from .dto import Propiedad as PropiedadDTO

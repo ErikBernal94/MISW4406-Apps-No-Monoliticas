@@ -76,7 +76,7 @@ class MapeadorPropiedad(RepMap):
         descripcion = entidad.descripcion_propiedad
         _id = str(entidad.id)
 
-        return PropiedadDTO(tipo_propiedad=tipo, descripcion_contrato=descripcion, id_propiedad= _id)
+        return PropiedadDTO(tipo_propiedad=tipo, descripcion_propiedad=descripcion, id_propiedad= _id)
 
     def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
         propiedad = Propiedad(tipo_propiedad=dto.tipo_propiedad, descripcion_propiedad=dto.descripcion_propiedad, id_propiedad=dto.id_propiedad)

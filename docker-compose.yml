@@ -3,6 +3,16 @@ networks:
   pulsar:
     driver: bridge
 services:
+  pulsar:
+    image: apachepulsar/pulsar:3.2.0
+    container_name: pulsar
+    profiles: ["pulsar", "full"]
+    restart: on-failure
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    command: ["bin/pulsar", "standalone"]
+
 # Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest

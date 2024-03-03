@@ -1,6 +1,5 @@
 from compania.config.db import db
 from compania.dominio.repositorios import RepositorioCompanias
-from compania.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
 from compania.dominio.entidades import Proveedor, Aeropuerto, Compania
 from compania.dominio.fabricas import FabricaCompanias
 from .dto import Compania as CompaniaDTO
