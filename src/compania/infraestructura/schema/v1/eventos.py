@@ -3,8 +3,8 @@ from compania.seedwork.infraestructura.schema.v1.eventos import EventoIntegracio
 
 class CompaniaCreadaPayload(Record):
     id_compania = String()
-    correo_electronico = object()
-    direccion = object()
+    correo_electronico = String()
+    direccion = String()
 
 class EventoCompaniaCreada(EventoIntegracion):
     data = CompaniaCreadaPayload()

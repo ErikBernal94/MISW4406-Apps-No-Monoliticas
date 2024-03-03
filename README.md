@@ -71,7 +71,7 @@ Desde el directorio principal puede ejecutar los siguientes comandos
 
 Ejecutar aplicación
 ```
-flask --app src/bff/api run
+flask --app src/bff/api run -p 5000
 ```
 Creacion de la imagen docker:
 ```
@@ -83,7 +83,7 @@ docker build . -f bff.Dockerfile -t bff/flask
 
 Ejecutar aplicación
 ```
-flask --app src/compania/api run
+flask --app src/compania/api run -p 5001
 ```
 
 Creacion de la imagen docker:
@@ -96,7 +96,7 @@ docker build . -f compania.Dockerfile -t compania/flask
 
 Ejecutar aplicación
 ```
-flask --app src/contrato/api run
+flask --app src/contrato/api run -p 5002
 ```
 
 Creacion de la imagen docker:
@@ -108,7 +108,7 @@ docker build . -f contrato.Dockerfile -t contrato/flask
 
 Ejecutar aplicación
 ```
-flask --app src/propiedad/api run
+flask --app src/propiedad/api run -p 5003
 ```
 
 Creacion de la imagen docker:

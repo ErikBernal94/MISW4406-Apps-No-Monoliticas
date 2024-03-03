@@ -1,7 +1,7 @@
 from bff.seedwork.aplicacion.dto import Mapeador as AppMap
 from bff.seedwork.dominio.repositorios import Mapeador as RepMap
-from bff.dominio.entidades import Compania, Contrato
-from .dto import CompaniaDTO, ContratoDTO
+from bff.dominio.entidades import Compania, Contrato, Propiedad
+from .dto import CompaniaDTO, ContratoDTO, PropiedadDTO
 
 from datetime import datetime
 

@@ -50,7 +50,7 @@ def create_app(configuracion={}):
 
     from propiedad.config.db import db
 
-    app.run(debug=True, port=5002)
+    app.run(debug=True, port=5003)
 
     importar_modelos_alchemy()
     registrar_handlers()

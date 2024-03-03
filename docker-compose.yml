@@ -166,8 +166,8 @@ services:
     profiles: ["all"]
     networks:
       - pulsar
-    depends_on:
-      - broker
+    # depends_on:
+    #   - broker
     environment:
       - PULSAR_ADDRESS=broker
     ports:
@@ -178,8 +178,8 @@ services:
     profiles: ["all"]
     container_name: compania
     hostname: compania
-    depends_on:
-     - broker
+    # depends_on:
+    #  - broker
     networks:
       - pulsar
     environment:
@@ -187,16 +187,30 @@ services:
     ports:
       - "5001:5001"
 
-  contrato:
-    image: "pda-alpes/contrato"
-    profiles: ["all"]
-    container_name: contrato
-    hostname: contrato
-    depends_on:
-      - broker
-    networks:
-      - pulsar
-    environment:
-      - PULSAR_ADDRESS=broker
-    ports:
-      - "5002:5002"
+  # contrato:
+  #   image: "pda-alpes/contrato"
+  #   profiles: ["all"]
+  #   container_name: contrato
+  #   hostname: contrato
+  #   depends_on:
+  #     - broker
+  #   networks:
+  #     - pulsar
+  #   environment:
+  #     - PULSAR_ADDRESS=broker
+  #   ports:
+  #     - "5002:5002"
+
+  # propiedad:
+  #   image: "pda-alpes/propiedad"
+  #   profiles: ["all"]
+  #   container_name: propiedad
+  #   hostname: propiedad
+  #   depends_on:
+  #     - broker
+  #   networks:
+  #     - pulsar
+  #   environment:
+  #     - PULSAR_ADDRESS=broker
+  #   ports:
+  #     - "5003:5003"
