@@ -6,8 +6,8 @@ from datetime import datetime
 @dataclass
 class CompaniaRegistrada(EventoDominio):
     id_compania: uuid.UUID = None
-    correo_electronico: object = None
-    direccion: object = None
+    correo_electronico: String = None
+    direccion: String = None
 
 @dataclass
 class ContratoRegistrado(EventoDominio):

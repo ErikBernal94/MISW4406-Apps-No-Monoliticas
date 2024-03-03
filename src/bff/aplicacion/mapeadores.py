@@ -1,13 +1,13 @@
 from bff.seedwork.aplicacion.dto import Mapeador as AppMap
 from bff.seedwork.dominio.repositorios import Mapeador as RepMap
-from bff.dominio.entidades import Compania, Contrato
-from .dto import CompaniaDTO, ContratoDTO
+from bff.dominio.entidades import Compania, Contrato, Propiedad
+from .dto import CompaniaDTO, ContratoDTO, PropiedadDTO
 
 from datetime import datetime
 
 class MapeadorCompaniaDTOJson(AppMap):
     def externo_a_dto(self, externo: dict) -> CompaniaDTO:
-        compania_dto = CompaniaDTO(correo_electronico=externo.correo_electronico,direccion=externo.direccion, id=externo.id)
+        compania_dto = CompaniaDTO(correo_electronico=externo['correo_electronico'],direccion=externo['direccion'], id_compania=externo['id'])
         return compania_dto
 
     def dto_a_externo(self, dto: CompaniaDTO) -> dict:
@@ -24,16 +24,16 @@ class MapeadorCompania(RepMap):
         direccion = entidad.direccion
         _id = str(entidad.id)
         
-        return CompaniaDTO(direccion= direccion, correo_electronico=correo_electronico, id= _id)
+        return CompaniaDTO(direccion= direccion, correo_electronico=correo_electronico, id_compania= _id)
 
     def dto_a_entidad(self, dto: CompaniaDTO) -> Compania:
-        compania = Compania(correo_electronico=dto.correo_electronico,direccion=dto.direccion, id=dto.id)
+        compania = Compania(correo_electronico=dto.correo_electronico,direccion=dto.direccion, id_compania=dto.id_compania)
         return compania
     
 
 class MapeadorContratoDTOJson(AppMap):
     def externo_a_dto(self, externo: dict) -> ContratoDTO:
-        contrato_dto = ContratoDTO(tipo_contrato=externo.tipo_contrato, estado_contrato=externo.estado_contrato, id=externo.id)
+        contrato_dto = ContratoDTO(tipo_contrato=externo['tipo_contrato'], estado_contrato=externo['estado_contrato'], id_contrato=externo['id'])
         return contrato_dto
 
     def dto_a_externo(self, dto: ContratoDTO) -> dict:
@@ -50,16 +50,16 @@ class MapeadorContrato(RepMap):
         estato = entidad.estado_contrato
         _id = str(entidad.id)
         
-        return ContratoDTO(tipo_contrato=tipo, estado_contrato=estato, id= _id)
+        return ContratoDTO(tipo_contrato=tipo, estado_contrato=estato, id_contrato= _id)
 
     def dto_a_entidad(self, dto: ContratoDTO) -> Contrato:
-        contrato = Contrato(tipo_contrato=dto.tipo_contrato, estado_contrato=dto.estado_contrato, id=dto.id)
+        contrato = Contrato(tipo_contrato=dto.tipo_contrato, estado_contrato=dto.estado_contrato, id_contrato=dto.id_contrato)
         return contrato
 
 
 class MapeadorPropiedadDTOJson(AppMap):
     def externo_a_dto(self, externo: dict) -> PropiedadDTO:
-        propiedad_dto = PropiedadDTO(tipo_propiedad=externo.tipo_propiedad, descripcion_propiedad=externo.descripcion_propiedad, id=externo.id)
+        propiedad_dto = PropiedadDTO(tipo_propiedad=externo['tipo_propiedad'], descripcion_propiedad=externo['descripcion_propiedad'], id_propiedad=externo['id'])
         return propiedad_dto
 
     def dto_a_externo(self, dto: PropiedadDTO) -> dict:
@@ -76,11 +76,8 @@ class MapeadorPropiedad(RepMap):
         descripcion = entidad.descripcion_propiedad
         _id = str(entidad.id)
 
-        return PropiedadDTO(tipo_propiedad=tipo, descripcion_contrato=descripcion, id= _id)
+        return PropiedadDTO(tipo_propiedad=tipo, descripcion_contrato=descripcion, id_propiedad= _id)
 
     def dto_a_entidad(self, dto: PropiedadDTO) -> Propiedad:
-        propiedad = Propiedad(tipo_propiedad=dto.tipo_propiedad, descripcion_propiedad=dto.descripcion_propiedad, id=dto.id)
+        propiedad = Propiedad(tipo_propiedad=dto.tipo_propiedad, descripcion_propiedad=dto.descripcion_propiedad, id_propiedad=dto.id_propiedad)
         return contrato
-
-
-
