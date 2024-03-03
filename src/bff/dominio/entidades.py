@@ -15,5 +15,11 @@ class Contrato(Entidad):
     tipo_contrato: str = None
     estado_contrato: str = None
 
+@dataclass
+class Propiedad(Entidad):
+    id_propiedad: uuid.UUID = field(hash=True, default=None)
+    tipo_propiedad: str = None
+    descripcion_propiedad: str = None
+
 
 
