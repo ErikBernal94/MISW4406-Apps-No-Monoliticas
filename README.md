@@ -62,17 +62,15 @@ Por otra parte es importante mencionar las implementaciones más importantes de 
 
 Por último, cada uno de los microservicios va a estar alojado en un contenedor de docker, por lo que se crean los archivos correspondientes. Para la administración de los contenedores se crea un archivo docker-compose.yml en donde se especifican las dependencias y configuraciones generales de los contenedores y del broker de eventos (pulsar).
 
-### Comandos para ejecutar el proyecto
-```
-flask --app src/bff/api run
-```
+## Comandos para ejecutar el proyecto
+
 ###  Microservicio BFF
 
 Desde el directorio principal puede ejecutar los siguientes comandos
 
 Ejecutar aplicación
 ```
-python src/bff/main.py
+flask --app src/bff/api run
 ```
 Creacion de la imagen docker:
 ```
@@ -84,7 +82,7 @@ docker build . -f bff.Dockerfile -t bff/flask
 
 Ejecutar aplicación
 ```
-python src/compania/main.py
+flask --app src/compania/api run
 ```
 
 Creacion de la imagen docker:
@@ -97,7 +95,7 @@ docker build . -f compania.Dockerfile -t compania/flask
 
 Ejecutar aplicación
 ```
-python src/contrato/main.py
+flask --app src/contrato/api run
 ```
 
 Creacion de la imagen docker:
@@ -115,6 +113,11 @@ docker-compose up
 Para detenerlo
 ```
 docker-compose stop
+```
+
+Desplegar bases de datos
+```
+docker-compose --profile db up
 ```
 
 
@@ -137,5 +140,5 @@ docker-compose stop
 ## Jeyson Vega
 - Para la entrega 3: Creación de los escenarios de calidad para el atributo de calidad de Disponibilidad y creación de diagramas relacionados.
   
-- Para entrega 4: Creación de la conexion a las bases de datos descentralizadas para los cuatro microservicios, revision de que se pueda utilizar y guardar en ellas información.
+- Para entrega 4: Creación de la conexión a las bases de datos descentralizadas para los cuatro microservicios, revisión de que se pueda utilizar y guardar en ellas información.
 
