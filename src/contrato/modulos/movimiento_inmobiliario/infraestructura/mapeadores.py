@@ -1,5 +1,5 @@
-from movimiento.seedwork.dominio.repositorios import Mapeador
-from movimiento.modulos.movimiento_inmobiliario.dominio.entidades import MovimientoInmobiliario
+from contrato.seedwork.dominio.repositorios import Mapeador
+from contrato.modulos.movimiento_inmobiliario.dominio.entidades import MovimientoInmobiliario
 from .dto import MovimientoInmobiliario as MovimientoDTO
 
 class MapeadorMovimiento(Mapeador):

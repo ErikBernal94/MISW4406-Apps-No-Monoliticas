@@ -1,7 +1,7 @@
 import pulsar
 from pulsar.schema import *
 
-from bff.infraestructura.schema.v1.eventos import EventoCompaniaCreada, CompaniaCreadaPayload, ContratoCreadaPayload, EventoContratoCreada
+from bff.infraestructura.schema.v1.eventos import EventoCompaniaCreada, CompaniaCreadaPayload, ContratoCreadaPayload, PropiedadCreadaPayload, EventoContratoCreada, EventoPropiedadCreada
 from bff.infraestructura.schema.v1.comandos import ComandoCrearCompania, ComandoCrearCompaniaPayload, ComandoCrearContrato, ComandoCrearContratoPayload
 from bff.seedwork.infraestructura import utils
 
@@ -46,8 +46,8 @@ class Despachador:
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
         payload = ContratoCreadaPayload(
             id_contrato=str(evento.id_contrato), 
-            correo_electronico=str(evento.correo_electronico), 
-            direccion=str(evento.direccion) 
+            estado_contrato=str(evento.estado_contrato), 
+            tipo_contrato=str(evento.tipo_contrato) 
         )
         evento_integracion = EventoContratoCreada(data=payload)
         self._publicar_mensaje_contrato(evento_integracion, topico, AvroSchema(EventoContratoCreada))
@@ -61,15 +61,19 @@ class Despachador:
 
     def _publicar_mensaje_propiedad(self, mensaje, topico, schema):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        print('propiedad 1.0: ', EventoPropiedadCreada)
         publicador = cliente.create_producer(topico, schema=AvroSchema(EventoPropiedadCreada))
+        print('propiedad 1.1')
         publicador.send(mensaje)
+        print('propiedad 1.2')
         cliente.close()
 
     def publicar_evento_propiedad(self, evento, topico):
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
         payload = PropiedadCreadaPayload(
-            id_propiedad=str(evento.id_contrato),
-            direccion=str(evento.direccion)
+            id_propiedad=str(evento.id_propiedad),
+            tipo_propiedad=str(evento.tipo_propiedad),
+            descripcion_propiedad=str(evento.descripcion_propiedad)
         )
         evento_integracion = EventoPropiedadCreada(data=payload)
         self._publicar_mensaje_propiedad(evento_integracion, topico, AvroSchema(EventoPropiedadCreada))

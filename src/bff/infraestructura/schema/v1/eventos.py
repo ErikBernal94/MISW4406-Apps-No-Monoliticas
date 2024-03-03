@@ -16,3 +16,11 @@ class ContratoCreadaPayload(Record):
 
 class EventoContratoCreada(EventoIntegracion):
     data = ContratoCreadaPayload()
+
+class PropiedadCreadaPayload(Record):
+    id_propiedad = String()
+    descripcion_propiedad = String()
+    tipo_propiedad = String()
+
+class EventoPropiedadCreada(EventoIntegracion):
+    data = PropiedadCreadaPayload()

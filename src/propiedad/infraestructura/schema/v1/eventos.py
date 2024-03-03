@@ -3,7 +3,7 @@ from propiedad.seedwork.infraestructura.schema.v1.eventos import EventoIntegraci
 
 class PropiedadCreadaPayload(Record):
     id_propiedad = String()
-    estado_propiedad = String()
+    descripcion_propiedad = String()
     tipo_propiedad = String()
 
 class EventoPropiedadCreada(EventoIntegracion):

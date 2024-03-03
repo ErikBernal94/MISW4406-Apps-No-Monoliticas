@@ -1,6 +1,5 @@
 from contrato.config.db import db
 from contrato.modulos.contrato.dominio.repositorios import RepositorioContratos
-from contrato.modulos.contrato.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
 from contrato.modulos.contrato.dominio.entidades import Proveedor, Aeropuerto, Contrato
 from contrato.modulos.contrato.dominio.fabricas import _FabricaContratos
 from .dto import Contrato as ContratoDTO

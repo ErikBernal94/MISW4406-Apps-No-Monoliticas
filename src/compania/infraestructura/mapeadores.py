@@ -1,5 +1,4 @@
 from compania.seedwork.dominio.repositorios import Mapeador
-from compania.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
 from compania.dominio.entidades import Compania
 from .dto import Compania as CompaniaDTO
 

@@ -1,10 +1,10 @@
 import bff.seedwork.presentacion.api as api
 import json
-from bff.aplicacion.dto import ContratoDTO
+from bff.aplicacion.dto import PropiedadDTO
 
 from flask import redirect, render_template, request, session, url_for
 from flask import Response
-from bff.aplicacion.mapeadores import MapeadorContratoDTOJson
+from bff.aplicacion.mapeadores import MapeadorPropiedadDTOJson
 from bff.aplicacion.comandos.registrar_propiedad import CrearPropiedad
 from bff.seedwork.aplicacion.comandos import ejecutar_commando
 
@@ -17,7 +17,7 @@ def propiedad_asincrona():
     map_propiedad = MapeadorPropiedadDTOJson()
     propiedad_dto = map_propiedad.externo_a_dto(propiedad_dict)
 
-    comando = CrearPropiedad(id=propiedad_dto.id_propiedad, tipo= propiedad_dto.tipo_propiedad, descripcion=propiedad_dto.descripcion_contrato)
+    comando = CrearPropiedad(id=propiedad_dto.id_propiedad, tipo= propiedad_dto.tipo_propiedad, descripcion=propiedad_dto.descripcion_propiedad)
 
     ejecutar_commando(comando)
     

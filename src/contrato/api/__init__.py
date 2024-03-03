@@ -7,10 +7,10 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import contrato.aplicacion
+    import contrato.modulos.contrato.aplicacion
 
 def importar_modelos_alchemy():
-    import contrato.infraestructura.dto
+    import contrato.modulos.contrato.infraestructura.dto
 
 def comenzar_consumidor():
     """
@@ -20,7 +20,7 @@ def comenzar_consumidor():
     """
 
     import threading
-    import contrato.infraestructura.consumidores as contratos
+    import contrato.modulos.contrato.infraestructura.consumidores as contratos
 
     # Suscripción a eventos
     threading.Thread(target=contratos.suscribirse_a_eventos).start()
