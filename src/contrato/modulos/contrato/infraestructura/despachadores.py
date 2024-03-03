@@ -1,8 +1,8 @@
 import pulsar
 from pulsar.schema import *
 
-from contrato.infraestructura.schema.v1.eventos import EventoContratoCreada, ContratoCreadaPayload
-from contrato.infraestructura.schema.v1.comandos import ComandoCrearContrato, ComandoCrearContratoPayload
+from contrato.modulos.contrato.infraestructura.schema.v1.eventos import EventoContratoCreada, ContratoCreadaPayload
+from contrato.modulos.contrato.infraestructura.schema.v1.comandos import ComandoCrearContrato, ComandoCrearContratoPayload
 from contrato.seedwork.infraestructura import utils
 
 import datetime
