@@ -1,8 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 
-from contrato.dominio.objetos_valor import TipoContrato, EstadoContrato
-from contrato.dominio.eventos import ContratoRegistrado
+from contrato.modulos.contrato.dominio.objetos_valor import TipoContrato, EstadoContrato
+from contrato.modulos.contrato.dominio.eventos import ContratoRegistrado
 from contrato.seedwork.dominio.entidades import AgregacionRaiz, Entidad
 
 @dataclass

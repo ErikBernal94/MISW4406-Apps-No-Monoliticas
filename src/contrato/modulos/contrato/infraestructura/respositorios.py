@@ -1,8 +1,8 @@
 from contrato.config.db import db
-from contrato.dominio.repositorios import RepositorioContratos
-from contrato.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
-from contrato.dominio.entidades import Proveedor, Aeropuerto, Contrato
-from contrato.dominio.fabricas import FabricaContratos
+from contrato.modulos.contrato.dominio.repositorios import RepositorioContratos
+from contrato.modulos.contrato.dominio.objetos_valor import NombreAero, Odo, Leg, Segmento, Itinerario, CodigoIATA
+from contrato.modulos.contrato.dominio.entidades import Proveedor, Aeropuerto, Contrato
+from contrato.modulos.contrato.dominio.fabricas import _FabricaContratos
 from .dto import Contrato as ContratoDTO
 from .mapeadores import MapeadorContrato
 from uuid import UUID
@@ -10,7 +10,7 @@ from uuid import UUID
 class RepositorioContratosSQLite(RepositorioContratos):
 
     def __init__(self):
-        self._fabrica_contratos: FabricaContratos = FabricaContratos()
+        self._fabrica_contratos: _FabricaContratos = _FabricaContratos()
 
     @property
     def fabrica_contratos(self):

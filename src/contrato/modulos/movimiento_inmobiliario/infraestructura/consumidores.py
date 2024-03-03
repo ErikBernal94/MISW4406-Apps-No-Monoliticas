@@ -5,8 +5,8 @@ import time
 import logging
 import traceback
 
-from contrato.infraestructura.schema.v1.eventos import EventoContratoCreada
-from contrato.infraestructura.schema.v1.comandos import ComandoCrearContrato
+from contrato.modulos.movimiento_inmobiliario.infraestructura.schema.v1.eventos import EventoMovimientoCreado
+from contrato.modulos.movimiento_inmobiliario.infraestructura.schema.v1.comandos import ComandoCrearMovimiento
 from contrato.seedwork.infraestructura import utils
 
 def suscribirse_a_eventos():
