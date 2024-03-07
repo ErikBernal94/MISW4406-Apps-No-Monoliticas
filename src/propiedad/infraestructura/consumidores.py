@@ -4,10 +4,34 @@ import uuid
 import time
 import logging
 import traceback
+import aiopulsar
+import asyncio
+from pro.seedwork.infraestructura import utils
+
 
 from propiedad.infraestructura.schema.v1.eventos import EventoPropiedadCreada
 from propiedad.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
 from propiedad.seedwork.infraestructura import utils
+
+async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, tipo_consumidor:_pulsar.ConsumerType=_pulsar.ConsumerType.Shared):
+    try:
+        async with aiopulsar.connect(f'pulsar://{utils.broker_host()}:6650') as propiedad:
+            async with propiedad.subscribe(
+                topico, 
+                consumer_type=tipo_consumidor,
+                subscription_name=suscripcion, 
+                schema=AvroSchema(schema)
+            ) as consumidor:
+                while True:
+                    mensaje = await consumidor.receive()
+                    print(mensaje)
+                    datos = mensaje.value()
+                    print(f'Evento recibido: {datos}')
+                    await consumidor.acknowledge(mensaje)    
+
+    except:
+        logging.error('ERROR: Suscribiendose al tópico de eventos!')
+        traceback.print_exc()
 
 def suscribirse_a_eventos():
     cliente = None
