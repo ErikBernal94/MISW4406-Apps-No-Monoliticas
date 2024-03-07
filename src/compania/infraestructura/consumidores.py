@@ -5,11 +5,15 @@ import time
 import logging
 import traceback
 
+from datetime import datetime
+
+from compania.infraestructura.proyecciones import ProyeccionReservasLista, ProyeccionReservasTotales
+from compania.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
 from compania.infraestructura.schema.v1.eventos import EventoCompaniaCreada
 from compania.infraestructura.schema.v1.comandos import ComandoCrearCompania
 from compania.seedwork.infraestructura import utils
 
-def suscribirse_a_eventos():
+def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
@@ -17,7 +21,14 @@ def suscribirse_a_eventos():
 
         while True:
             mensaje = consumidor.receive()
-            print(f'Evento recibido: {mensaje.value().data}')
+            datos = mensaje.value().data
+            fecha_creacion = utils.current_milli_time()
+            fecha_actualizacion = utils.current_milli_time()
+            print(f'Evento recibido: {datos}')
+
+            # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
+            ejecutar_proyeccion(ProyeccionReservasTotales(fecha_creacion, ProyeccionReservasTotales.ADD), app=app)
+            ejecutar_proyeccion(ProyeccionReservasLista(datos.id_compania, datos.correo_electronico, datos.direccion, fecha_creacion, fecha_actualizacion), app=app)
 
             consumidor.acknowledge(mensaje)     
 

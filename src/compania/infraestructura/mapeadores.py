@@ -17,4 +17,5 @@ class MapeadorCompania(Mapeador):
         return compania_dto
 
     def dto_a_entidad(self, dto: CompaniaDTO) -> Compania:
-        return Compania(dto.id, id_compania= dto.id,correo_electronico= dto.correo_electronico, direccion=dto.correo_electronico )
+
+        return Compania(correo_electronico= dto.correo_electronico, direccion=dto.direccion )

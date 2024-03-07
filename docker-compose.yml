@@ -2,11 +2,15 @@ version: '3'
 networks:
   pulsar:
     driver: bridge
+  sidecar:
+    driver: bridge
 services:
+
+# Pulsar full
   pulsar:
     image: apachepulsar/pulsar:3.2.0
     container_name: pulsar
-    profiles: ["pulsar", "full"]
+    profiles: ["full"]
     restart: on-failure
     ports:
       - "6650:6650"
@@ -212,3 +216,17 @@ services:
       - PULSAR_ADDRESS=broker
     ports:
       - '5002:5002'
+
+  propiedad:
+    image: "pda-alpes/propiedad"
+    profiles: ["all"]
+    container_name: propiedad
+    hostname: propiedad
+    depends_on:
+      - broker
+    networks:
+      - pulsar
+    environment:
+      - PULSAR_ADDRESS=broker
+    ports:
+      - '5003:5003'
