@@ -7,7 +7,7 @@ import traceback
 
 from datetime import datetime
 
-from contrato.modulos.contrato.infraestructura.proyecciones import ProyeccionReservasLista, ProyeccionReservasTotales
+from contrato.modulos.contrato.infraestructura.proyecciones import ProyeccionContratosLista
 from contrato.modulos.contrato.infraestructura.schema.v1.eventos import EventoContratoCreada
 from contrato.modulos.contrato.infraestructura.schema.v1.comandos import ComandoCrearContrato
 from contrato.modulos.contrato.infraestructura.mapeadores import MapeadorContrato
@@ -17,6 +17,7 @@ from contrato.modulos.contrato.dominio.entidades import Contrato
 from contrato.modulos.movimiento_inmobiliario.dominio.fabricas import _FabricaMovimientoInmobiliario
 from contrato.modulos.movimiento_inmobiliario.dominio.entidades import MovimientoInmobiliario
 from contrato.seedwork.infraestructura import utils
+from contrato.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
 
 def suscribirse_a_eventos(app=None):
     cliente = None
@@ -31,9 +32,7 @@ def suscribirse_a_eventos(app=None):
             fecha_actualizacion = utils.current_milli_time()
             print(f'Evento recibido: {datos}')
 
-            # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
-            ejecutar_proyeccion(ProyeccionReservasTotales(fecha_creacion, ProyeccionReservasTotales.ADD), app=app)
-            ejecutar_proyeccion(ProyeccionReservasLista(datos.id_compania, datos.tipo_contrato, datos.estado_contrato, fecha_creacion, fecha_actualizacion), app=app)
+            ejecutar_proyeccion(ProyeccionContratosLista(datos.id_contrato, datos.tipo_contrato, datos.estado_contrato, fecha_creacion, fecha_actualizacion), app=app)
 
             consumidor.acknowledge(mensaje)
 

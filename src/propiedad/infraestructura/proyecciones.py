@@ -9,42 +9,13 @@ import logging
 import traceback
 from .dto import Propiedad
 
-class ProyeccionReserva(Proyeccion, ABC):
+class ProyeccionPropiedad(Proyeccion, ABC):
     @abstractmethod
     def ejecutar(self):
         ...
 
-class ProyeccionReservasTotales(ProyeccionReserva):
-    ADD = 1
-    DELETE = 2
-    UPDATE = 3
-
-    def __init__(self, fecha_creacion, operacion):
-        # self.fecha_creacion = millis_a_datetime(fecha_creacion)
-        self.operacion = operacion
-
-    def ejecutar(self, db=None):
-        if not db:
-            logging.error('ERROR: DB del app no puede ser nula')
-            return
-        # NOTE esta no usa repositorios y de una vez aplica los cambios. Es decir, no todo siempre debe ser un repositorio
-        record = None
-        # record = db.session.query(Propiedad).one_or_none()
-        # record = db.session.query(Propiedad).filter_by(fecha_creacion=self.fecha_creacion.date()).one_or_none()
-
-        if record and self.operacion == self.ADD:
-            record.total += 1
-        elif record and self.operacion == self.DELETE:
-            record.total -= 1 
-            record.total = max(record.total, 0)
-        # else:
-            # db.session.add(Propiedad())
-            # db.session.add(Propiedad(fecha_creacion=self.fecha_creacion.date(), total=1))
-        
-        db.session.commit()
-
-class ProyeccionReservasLista(ProyeccionReserva):
-    def __init__(self, id_propiedad, correo_electronico, direccion, fecha_creacion, fecha_actualizacion):
+class ProyeccionPropiedadesLista(ProyeccionPropiedad):
+    def __init__(self, id_propiedad, tipo_propiedad, descripcion_propiedad, fecha_creacion, fecha_actualizacion):
         self.id_propiedad = id
         self.tipo_propiedad = tipo_propiedad
         self.descripcion_propiedad = descripcion_propiedad
@@ -67,24 +38,23 @@ class ProyeccionReservasLista(ProyeccionReserva):
 
         db.session.commit()
 
-class ProyeccionReservaHandler(ProyeccionHandler):
+class ProyeccionPropiedadHandler(ProyeccionHandler):
     
-    def handle(self, proyeccion: ProyeccionReserva):
+    def handle(self, proyeccion: ProyeccionPropiedad):
 
         from propiedad.config.db import db
 
         proyeccion.ejecutar(db=db)
 
 
-@proyeccion.register(ProyeccionReservasLista)
-@proyeccion.register(ProyeccionReservasTotales)
-def ejecutar_proyeccion_reserva(proyeccion, app=None):
+@proyeccion.register(ProyeccionPropiedadesLista)
+def ejecutar_proyeccion_propiedad(proyeccion, app=None):
     if not app:
         logging.error('ERROR: Contexto del app no puede ser nulo')
         return
     try:
         with app.app_context():
-            handler = ProyeccionReservaHandler()
+            handler = ProyeccionPropiedadHandler()
             handler.handle(proyeccion)
             
     except:

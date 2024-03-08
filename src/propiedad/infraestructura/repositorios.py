@@ -1,6 +1,6 @@
 from propiedad.config.db import db
 from propiedad.dominio.repositorios import RepositorioPropiedades
-from propiedad.dominio.entidades import Proveedor, Aeropuerto, Propiedad
+from propiedad.dominio.entidades import Propiedad
 from propiedad.dominio.fabricas import FabricaPropiedades
 from .dto import Propiedad as PropiedadDTO
 from .mapeadores import MapeadorPropiedad

@@ -10,12 +10,12 @@ import traceback
 from .dto import Compania
 # from compania.seedwork.infraestructura.utils import millis_a_datetime
 
-class ProyeccionReserva(Proyeccion, ABC):
+class ProyeccionCompania(Proyeccion, ABC):
     @abstractmethod
     def ejecutar(self):
         ...
 
-class ProyeccionReservasTotales(ProyeccionReserva):
+class ProyeccionCompaniasTotales(ProyeccionCompania):
     ADD = 1
     DELETE = 2
     UPDATE = 3
@@ -44,7 +44,7 @@ class ProyeccionReservasTotales(ProyeccionReserva):
         
         db.session.commit()
 
-class ProyeccionReservasLista(ProyeccionReserva):
+class ProyeccionCompaniasLista(ProyeccionCompania):
     def __init__(self, id_compania, correo_electronico, direccion, fecha_creacion, fecha_actualizacion):
         self.id_compania = id
         self.correo_electronico = correo_electronico
@@ -68,23 +68,23 @@ class ProyeccionReservasLista(ProyeccionReserva):
 
         db.session.commit()
 
-class ProyeccionReservaHandler(ProyeccionHandler):
+class ProyeccionCompaniaHandler(ProyeccionHandler):
     
-    def handle(self, proyeccion: ProyeccionReserva):
+    def handle(self, proyeccion: ProyeccionCompania):
         from compania.config.db import db
 
         proyeccion.ejecutar(db=db)
 
 
-@proyeccion.register(ProyeccionReservasLista)
-@proyeccion.register(ProyeccionReservasTotales)
-def ejecutar_proyeccion_reserva(proyeccion, app=None):
+@proyeccion.register(ProyeccionCompaniasLista)
+@proyeccion.register(ProyeccionCompaniasTotales)
+def ejecutar_proyeccion_compania(proyeccion, app=None):
     if not app:
         logging.error('ERROR: Contexto del app no puede ser nulo')
         return
     try:
         with app.app_context():
-            handler = ProyeccionReservaHandler()
+            handler = ProyeccionCompaniaHandler()
             handler.handle(proyeccion)
             
     except:
