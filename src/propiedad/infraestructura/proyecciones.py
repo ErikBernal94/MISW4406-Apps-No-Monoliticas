@@ -1,14 +1,13 @@
-from compania.seedwork.infraestructura.proyecciones import Proyeccion, ProyeccionHandler
-from compania.seedwork.infraestructura.proyecciones import ejecutar_proyeccion as proyeccion
-from compania.infraestructura.fabricas import FabricaRepositorio
-from compania.infraestructura.respositorios import RepositorioCompanias
-from compania.dominio.entidades import Compania
+from propiedad.seedwork.infraestructura.proyecciones import Proyeccion, ProyeccionHandler
+from propiedad.seedwork.infraestructura.proyecciones import ejecutar_proyeccion as proyeccion
+from propiedad.infraestructura.fabricas import FabricaRepositorio
+from propiedad.infraestructura.respositorios import RepositorioPropiedades
+from propiedad.dominio.entidades import Propiedad
 
 from abc import ABC, abstractmethod
 import logging
 import traceback
-from .dto import Compania
-# from compania.seedwork.infraestructura.utils import millis_a_datetime
+from .dto import Propiedad
 
 class ProyeccionReserva(Proyeccion, ABC):
     @abstractmethod
@@ -30,8 +29,8 @@ class ProyeccionReservasTotales(ProyeccionReserva):
             return
         # NOTE esta no usa repositorios y de una vez aplica los cambios. Es decir, no todo siempre debe ser un repositorio
         record = None
-        # record = db.session.query(Compania).one_or_none()
-        # record = db.session.query(Compania).filter_by(fecha_creacion=self.fecha_creacion.date()).one_or_none()
+        # record = db.session.query(Propiedad).one_or_none()
+        # record = db.session.query(Propiedad).filter_by(fecha_creacion=self.fecha_creacion.date()).one_or_none()
 
         if record and self.operacion == self.ADD:
             record.total += 1
@@ -39,16 +38,16 @@ class ProyeccionReservasTotales(ProyeccionReserva):
             record.total -= 1 
             record.total = max(record.total, 0)
         # else:
-            # db.session.add(Compania())
-            # db.session.add(Compania(fecha_creacion=self.fecha_creacion.date(), total=1))
+            # db.session.add(Propiedad())
+            # db.session.add(Propiedad(fecha_creacion=self.fecha_creacion.date(), total=1))
         
         db.session.commit()
 
 class ProyeccionReservasLista(ProyeccionReserva):
-    def __init__(self, id_compania, correo_electronico, direccion, fecha_creacion, fecha_actualizacion):
-        self.id_compania = id
-        self.correo_electronico = correo_electronico
-        self.direccion = direccion
+    def __init__(self, id_propiedad, correo_electronico, direccion, fecha_creacion, fecha_actualizacion):
+        self.id_propiedad = id
+        self.tipo_propiedad = tipo_propiedad
+        self.descripcion_propiedad = descripcion_propiedad
         # self.fecha_creacion = millis_a_datetime(fecha_creacion)
         # self.fecha_actualizacion = millis_a_datetime(fecha_actualizacion)
     
@@ -58,14 +57,14 @@ class ProyeccionReservasLista(ProyeccionReserva):
             return
         
         fabrica_repositorio = FabricaRepositorio()
-        repositorio = fabrica_repositorio.crear_objeto(RepositorioCompanias)
+        repositorio = fabrica_repositorio.crear_objeto(RepositorioPropiedades)
         
         # TODO Haga los cambios necesarios para que se consideren los itinerarios, demás entidades y asociaciones
         repositorio.agregar(
-            Compania(
-                id=str(self.id_compania), 
-                correo_electronico=str(self.correo_electronico), 
-                direccion=str(self.direccion)))
+            Propiedad(
+                id=str(self.id_propiedad), 
+                tipo_propiedad=str(self.tipo_propiedad), 
+                descripcion_propiedad=str(self.descripcion_propiedad)))
         
         # TODO ¿Y si la reserva ya existe y debemos actualizarla? Complete el método para hacer merge
 
@@ -79,7 +78,7 @@ class ProyeccionReservaHandler(ProyeccionHandler):
         # TODO El evento de creación no viene con todos los datos de itinerarios, esto tal vez pueda ser una extensión
         # Asi mismo estamos dejando la funcionalidad de persistencia en el mismo método de recepción. Piense que componente
         # podriamos diseñar para alojar esta funcionalidad
-        from compania.config.db import db
+        from propiedad.config.db import db
 
         proyeccion.ejecutar(db=db)
 

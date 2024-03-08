@@ -24,8 +24,10 @@ class RepositorioContratosSQLite(RepositorioContratos):
         raise NotImplementedError
 
     def agregar(self, contrato: Contrato):
-        contrato_dto = self.fabrica_contratos.crear_objeto(contrato, MapeadorContrato())
-        db.session.add(contrato_dto)
+        evento_dto = ContratoDTO()
+        evento_dto.tipo_contrato = contrato.tipo_propiedad
+        evento_dto.estado_contrato = contrato.estado_contrato
+        db.session.add(evento_dto)
 
     def actualizar(self, contrato: Contrato):
         # TODO

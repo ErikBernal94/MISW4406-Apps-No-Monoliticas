@@ -13,3 +13,12 @@ class _FabricaMovimientoInmobiliario(Fabrica):
         else:
             movimiento : MovimientoInmobiliario = mapeador.dto_a_entidad(obj)
             return movimiento
+
+@dataclass
+class FabricaMovimientoInmobiliario(Fabrica):
+    def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
+        if mapeador.obtener_tipo() == MovimientoInmobiliario.__class__:
+            fabrica_movimientoInmobiliario = _FabricaMovimientoInmobiliario()
+            return fabrica_movimientoInmobiliario.crear_objeto(obj, mapeador)
+        else:
+            raise TipoObjetoNoExisteEnDominioVuelosExcepcion()
