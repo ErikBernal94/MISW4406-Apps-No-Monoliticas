@@ -1,7 +1,7 @@
 from contrato.seedwork.infraestructura.proyecciones import Proyeccion, ProyeccionHandler
 from contrato.seedwork.infraestructura.proyecciones import ejecutar_proyeccion as proyeccion
 from contrato.modulos.contrato.infraestructura.fabricas import FabricaRepositorio
-from contrato.modulos.contrato.infraestructura.respositorios import RepositorioContratos
+from contrato.modulos.contrato.infraestructura.repositorios import RepositorioContratos
 from contrato.modulos.contrato.dominio.entidades import Contrato
 
 from abc import ABC, abstractmethod
@@ -59,25 +59,18 @@ class ProyeccionReservasLista(ProyeccionReserva):
         fabrica_repositorio = FabricaRepositorio()
         repositorio = fabrica_repositorio.crear_objeto(RepositorioContratos)
         
-        # TODO Haga los cambios necesarios para que se consideren los itinerarios, demás entidades y asociaciones
         repositorio.agregar(
             Contrato(
                 id=str(self.id_contrato), 
                 correo_electronico=str(self.correo_electronico), 
                 direccion=str(self.direccion)))
-        
-        # TODO ¿Y si la reserva ya existe y debemos actualizarla? Complete el método para hacer merge
 
-        # TODO ¿Tal vez podríamos reutilizar la Unidad de Trabajo?
         db.session.commit()
 
 class ProyeccionReservaHandler(ProyeccionHandler):
     
     def handle(self, proyeccion: ProyeccionReserva):
 
-        # TODO El evento de creación no viene con todos los datos de itinerarios, esto tal vez pueda ser una extensión
-        # Asi mismo estamos dejando la funcionalidad de persistencia en el mismo método de recepción. Piense que componente
-        # podriamos diseñar para alojar esta funcionalidad
         from contrato.config.db import db
 
         proyeccion.ejecutar(db=db)

@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from compania.seedwork.dominio.fabricas import Fabrica
 from compania.seedwork.dominio.repositorios import Repositorio
 from compania.dominio.repositorios import RepositorioCompanias
-from .respositorios import RepositorioCompaniasSQLite
+from .repositorios import RepositorioCompaniasSQLite
 
 @dataclass
 class FabricaRepositorio(Fabrica):
