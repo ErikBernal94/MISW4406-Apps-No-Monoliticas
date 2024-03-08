@@ -17,4 +17,4 @@ class MapeadorContrato(Mapeador):
         return contrato_dto
 
     def dto_a_entidad(self, dto: ContratoDTO) -> Contrato:
-        return Contrato(dto.id, id_contrato= dto.id, tipo_contrato=dto.tipo, estado_contrato=dto.estado )
+        return Contrato(tipo_contrato=dto.tipo, estado_contrato=dto.estado)

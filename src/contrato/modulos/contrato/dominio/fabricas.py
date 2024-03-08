@@ -13,3 +13,12 @@ class _FabricaContrato(Fabrica):
         else:
             contrato : Contrato = mapeador.dto_a_entidad(obj)
             return contrato
+
+@dataclass
+class FabricaContratos(Fabrica):
+    def crear_objeto(self, obj: any, mapeador: Mapeador) -> any:
+        if mapeador.obtener_tipo() == Contrato.__class__:
+            fabrica_contrato = _FabricaContrato()
+            return fabrica_contrato.crear_objeto(obj, mapeador)
+        else:
+            raise TipoObjetoNoExisteEnDominioVuelosExcepcion()
