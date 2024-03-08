@@ -1,0 +1,363 @@
+###################################
+# Contrato
+###################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contrato
+  labels:
+    app: contrato
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contrato
+  template:
+    metadata:
+      labels:
+        app: contrato
+    spec:
+      containers:
+        - name: contrato
+          image: us-central1-docker.pkg.dev/apps-no-monoiliticas/misw-apps-no-monoliticas/contrato:1.0
+          ports:
+            - containerPort: 5002
+          # Realizar pull siempre a la imagen
+          imagePullPolicy: Always
+
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: pda-contrato-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 5002
+    type: HTTP
+    requestPath: /health
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicio-contrato
+  annotations:
+    cloud.google.com/backend-config: '{"default": "pda-contrato-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: contrato
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5002
+      nodePort: 31019
+
+---
+###################################
+# compañia
+###################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compania
+  labels:
+    app: compania
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compania
+  template:
+    metadata:
+      labels:
+        app: compania
+    spec:
+      containers:
+        - name: compania
+          image: us-central1-docker.pkg.dev/apps-no-monoiliticas/misw-apps-no-monoliticas/compania:1.0
+          ports:
+            - containerPort: 5001
+          imagePullPolicy: Always
+
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: pda-compania-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 5001
+    type: HTTP
+    requestPath: /health
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicio-compania
+  annotations:
+    cloud.google.com/backend-config: '{"default": "pda-compania-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: compania
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5001
+      nodePort: 31017
+---
+###################################
+# bff
+###################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bff
+  labels:
+    app: bff
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bff
+  template:
+    metadata:
+      labels:
+        app: bff
+    spec:
+      containers:
+        - name: bff
+          image: us-central1-docker.pkg.dev/apps-no-monoiliticas/misw-apps-no-monoliticas/bff:1.0
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always
+
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: pda-bff-config
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    port: 5000
+    type: HTTP
+    requestPath: /health
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicio-bff
+  annotations:
+    cloud.google.com/backend-config: '{"default": "pda-bff-config"}'
+spec:
+  type: NodePort
+  selector:
+    app: bff
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+      nodePort: 31018
+
+---
+###################################
+# Bookie
+###################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookie
+  labels:
+    app: bookie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookie
+  template:
+    metadata:
+      labels:
+        app: bookie
+    spec:
+      containers:
+        - name: bookie
+          image: tu-repositorio/bookie:latest  # Reemplaza "tu-repositorio" con tu repositorio de contenedores
+          ports:
+            - containerPort: 3181
+          imagePullPolicy: Always
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicio-bookie
+spec:
+  selector:
+    app: bookie
+  ports:
+    - protocol: TCP
+      port: 3181
+      targetPort: 3181
+---
+###################################
+# Zookeeper
+###################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+  labels:
+    app: zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+        - name: zookeeper
+          image: tu-repositorio/zookeeper:latest  # Reemplaza "tu-repositorio" con tu repositorio de contenedores
+          ports:
+            - containerPort: 2181
+          imagePullPolicy: Always
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicio-zookeeper
+spec:
+  selector:
+    app: zookeeper
+  ports:
+    - protocol: TCP
+      port: 2181
+      targetPort: 2181
+
+---
+###################################
+# Broker
+###################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: broker
+  labels:
+    app: broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: broker
+  template:
+    metadata:
+      labels:
+        app: broker
+    spec:
+      containers:
+        - name: broker
+          image: tu-repositorio/broker:latest  # Reemplaza "tu-repositorio" con tu repositorio de contenedores
+          ports:
+            - containerPort: 6650
+            - containerPort: 8080
+          imagePullPolicy: Always
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicio-broker
+spec:
+  selector:
+    app: broker
+  ports:
+    - protocol: TCP
+      port: 6650
+      targetPort: 6650
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+###################################
+# Pulsar
+###################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pulsar
+  labels:
+    app: pulsar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pulsar
+  template:
+    metadata:
+      labels:
+        app: pulsar
+    spec:
+      containers:
+        - name: pulsar
+          image: tu-repositorio/pulsar:3.2.0  # Reemplaza "tu-repositorio" con tu repositorio de contenedores
+          ports:
+            - containerPort: 6650
+            - containerPort: 8080
+          imagePullPolicy: Always
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicio-pulsar
+spec:
+  selector:
+    app: pulsar
+  ports:
+    - protocol: TCP
+      port: 6650
+      targetPort: 6650
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+
+###################################
+# INGRESS
+###################################
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-ingress-8
+  labels:
+    name: gateway-ingress-8
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /bff
+        backend:
+          service:
+            name: servicio-bff
+            port: 
+              number: 80
