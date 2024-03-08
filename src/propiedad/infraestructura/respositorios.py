@@ -1,31 +1,33 @@
 from propiedad.config.db import db
-from propiedad.dominio.repositorios import RepositorioPropiedads
+from propiedad.dominio.repositorios import RepositorioPropiedades
 from propiedad.dominio.entidades import Proveedor, Aeropuerto, Propiedad
-from propiedad.dominio.fabricas import FabricaPropiedads
+from propiedad.dominio.fabricas import FabricaPropiedades
 from .dto import Propiedad as PropiedadDTO
 from .mapeadores import MapeadorPropiedad
 from uuid import UUID
 
-class RepositorioPropiedadsSQLite(RepositorioPropiedads):
+class RepositorioPropiedadesSQLite(RepositorioPropiedades):
 
     def __init__(self):
-        self._fabrica_propiedads: FabricaPropiedads = FabricaPropiedads()
+        self._fabrica_propiedades: FabricaPropiedades = FabricaPropiedades()
 
     @property
-    def fabrica_propiedads(self):
-        return self._fabrica_propiedads
+    def fabrica_propiedades(self):
+        return self._fabrica_propiedades
 
     def obtener_por_id(self, id: UUID) -> Propiedad:
         propiedad_dto = db.session.query(PropiedadDTO).filter_by(id=str(id)).one()
-        return self.fabrica_propiedads.crear_objeto(propiedad_dto, MapeadorPropiedad())
+        return self.fabrica_propiedades.crear_objeto(propiedad_dto, MapeadorPropiedad())
 
     def obtener_todos(self) -> list[Propiedad]:
         # TODO
         raise NotImplementedError
 
     def agregar(self, propiedad: Propiedad):
-        propiedad_dto = self.fabrica_propiedads.crear_objeto(propiedad, MapeadorPropiedad())
-        db.session.add(propiedad_dto)
+        evento_dto = PropiedadDTO()
+        evento_dto.tipo_propiedad = propiedad.tipo_propiedad
+        evento_dto.descripcion_propiedad = propiedad.descripcion_propiedad
+        db.session.add(evento_dto)
 
     def actualizar(self, propiedad: Propiedad):
         # TODO

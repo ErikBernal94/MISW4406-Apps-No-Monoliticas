@@ -1,6 +1,6 @@
 from compania.config.db import db
 from compania.dominio.repositorios import RepositorioCompanias
-from compania.dominio.entidades import Proveedor, Aeropuerto, Compania
+from compania.dominio.entidades import Compania
 from compania.dominio.fabricas import FabricaCompanias
 from .dto import Compania as CompaniaDTO
 from .mapeadores import MapeadorCompania
@@ -24,8 +24,10 @@ class RepositorioCompaniasSQLite(RepositorioCompanias):
         raise NotImplementedError
 
     def agregar(self, compania: Compania):
-        compania_dto = self.fabrica_companias.crear_objeto(compania, MapeadorCompania())
-        db.session.add(compania_dto)
+        evento_dto = CompaniaDTO()
+        evento_dto.correo_electronico = compania.correo_electronico
+        evento_dto.direccion = compania.direccion
+        db.session.add(evento_dto)
 
     def actualizar(self, compania: Compania):
         # TODO

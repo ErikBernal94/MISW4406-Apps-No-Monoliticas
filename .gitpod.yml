@@ -10,18 +10,21 @@ tasks:
       gp sync-done bundle
   - name: Instalar dependencias
     init: gp sync-await bundle
-    command: pip install -r requirements.txt && pip install -r compania-requirements.txt && pip install -r contrato-requirements.txt && pip install -r bff-requirements.txt
+    command: pip install -r requirements.txt && pip install -r bff-requirements.txt && pip install -r compania-requirements.txt && pip install -r contrato-requirements.txt && pip install -r propiedad-requirements.txt
   - name: Crear imagenes Docker
     init: > 
       docker build . -f bff.Dockerfile -t pda-alpes/bff &&
-      docker build . -f compania.Dockerfile -t  pda-alpes/compania &&
-      docker build . -f contrato.Dockerfile -t  pda-alpes/contrato
+      docker build . -f compania.Dockerfile -t pda-alpes/compania &&
+      docker build . -f contrato.Dockerfile -t pda-alpes/contrato &&
+      docker build . -f propiedad.Dockerfile -t pda-alpes/propiedad &&
       gp sync-done images
-  - name: Crear folder para datos y asigna permisos
+  - name: Crear folder para datos, clientes, conectores y asignar permisos
     init: > 
       mkdir -p data/bookkeeper && 
       mkdir -p data/zookeeper && 
-      sudo chmod -R 777 ./data
+      mkdir -p data/mysql && 
+      sudo chmod -R 777 ./data &&
+      sudo chmod -R 777 ./connectors
   - name: Pull el Docker compose
     init: gp sync-await images
     command: docker-compose pull
@@ -37,4 +40,3 @@ ports:
     onOpen: ignore
   - port: 6650
     onOpen: ignore
-
