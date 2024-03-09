@@ -3,6 +3,7 @@ from compania.seedwork.dominio.fabricas import Fabrica
 from compania.seedwork.dominio.repositorios import Repositorio
 from compania.dominio.repositorios import RepositorioCompanias
 from .repositorios import RepositorioCompaniasSQLite
+from propiedad.seedwork.dominio.excepciones import ExcepcionFabrica
 
 @dataclass
 class FabricaRepositorio(Fabrica):

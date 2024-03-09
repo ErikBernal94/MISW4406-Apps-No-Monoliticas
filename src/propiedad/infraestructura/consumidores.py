@@ -7,7 +7,7 @@ import traceback
 
 from datetime import datetime
 
-from propiedad.infraestructura.proyecciones import ProyeccionReservasLista, ProyeccionReservasTotales
+from propiedad.infraestructura.proyecciones import ProyeccionPropiedadesLista
 from propiedad.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
 from propiedad.infraestructura.schema.v1.eventos import EventoPropiedadCreada
 from propiedad.infraestructura.schema.v1.comandos import ComandoCrearPropiedad
@@ -26,9 +26,7 @@ def suscribirse_a_eventos(app=None):
             fecha_actualizacion = utils.current_milli_time()
             print(f'Evento recibido: {datos}')
 
-            # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
-            ejecutar_proyeccion(ProyeccionReservasTotales(fecha_creacion, ProyeccionReservasTotales.ADD), app=app)
-            ejecutar_proyeccion(ProyeccionReservasLista(datos.id_propiedad, datos.tipo_propiedad, datos.descripcion_propiedad, fecha_creacion, fecha_actualizacion), app=app)
+            ejecutar_proyeccion(ProyeccionPropiedadesLista(datos.id_propiedad, datos.tipo_propiedad, datos.descripcion_propiedad, fecha_creacion, fecha_actualizacion), app=app)
 
             consumidor.acknowledge(mensaje)     
 
