@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD [ "flask", "--app", "./src/bff/api", "run", "--host=0.0.0.0", , "--port=5000"]
+CMD [ "flask", "--app", "./src/bff/api", "run", "--host=0.0.0.0", "--port=5000" ]
