@@ -8,6 +8,6 @@ Base = db.declarative_base()
 
 class Contrato(db.Model):
     __tablename__ = "contratos"
-    id = db.Column(db.String, primary_key=True)
-    estado = db.Column(db.String, nullable=True)
-    tipo = db.Column(db.String, nullable=True)
+    id = db.Column(db.Integer, primary_key=True)
+    estado_contrato = db.Column(db.String(255), nullable=True)
+    tipo_contrato = db.Column(db.String(255), nullable=True)

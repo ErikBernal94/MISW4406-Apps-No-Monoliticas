@@ -133,24 +133,66 @@ Desplegar bases de datos
 docker-compose --profile db up
 ```
 
+Desplegar pulsar
+```
+docker-compose --profile full up
+```
+
+### Consumir eventos Debezium
+
+Abrir en una terminal:
+```
+docker exec -it pulsar bash
+```
+Ya dentro de la contenedora ejecute:
+```
+./bin/pulsar-client consume -s "sub-datos" public/default/eventos-compania -n 0
+```
+
+### Consultar tópicos
+
+Abrir en una terminal:
+```
+docker exec -it pulsar bash
+```
+Ya dentro de la contenedora ejecute:
+```
+./bin/pulsar-admin topics list public/default
+```
+
+### Cambiar retención de tópicos
+
+Abrir en una terminal:
+```
+docker exec -it pulsar bash
+```
+Ya dentro de la contenedora ejecute:
+```
+./bin/pulsar-admin namespaces set-retention public/default --size -1 --time -1
+```
+Para poder ver que los cambios fueron efectivos ejecute el siguiente comando:
+```
+./bin/pulsar-admin namespaces get-retention public/default
+```
 
 # Integrantes del equipo
 
 ## Erik Bernal
-- Para la entrega Implementación de los microservicios y el diseño de software del sistema.   
-- Para entrega 4: Ajustes en los eventos de dominio dentro del sistema y creación de consultas.
+- Entrega Implementación de los microservicios y el diseño de software del sistema.   
+- Entrega 4: Ajustes en los eventos de dominio dentro del sistema y creación de consultas.
+- Entrega 5: Despliegues GCP (creación de k8's, configuración de balanceador y umbrales de escalamiento, configuración base de datos).
 
 ## Lizeth López
-- Para la entrega 3: Creación de los escenarios de calidad para el atributo de calidad de Escalbilidad y creación de diagramas relacionados.
-  
-- Para entrega 4: Revision de la documentación, creación y ajustes de las decisiones de arquitectura tomadas argumentando y dando a conocer el porque de estas decisiones. Revision de los schemas en Avro para la evolución y versionamientos.
+- Entrega 3: Creación de los escenarios de calidad para el atributo de calidad de Escalbilidad y creación de diagramas relacionados.
+- Entrega 4: Revision de la documentación, creación y ajustes de las decisiones de arquitectura tomadas argumentando y dando a conocer el porque de estas decisiones. Revision de los schemas en Avro para la evolución y versionamientos.
+- Entrega 5: Despliegue de broker GCP y apuntamientos.
 
 ## Alvaro Perez
-- Para la entrega 3: Creación de los escenarios de calidad para el atributo de calidad de Facilidad de modificación y creación de diagramas relacionados.
-  
-- Para entrega 4: Creación del cuarto microservicio que cumpla con las especificaciones necesarias y creación de los eventos en el track planeado en base de datos (event sourcing)
+- Entrega 3: Creación de los escenarios de calidad para el atributo de calidad de Facilidad de modificación y creación de diagramas relacionados.
+- Entrega 4: Creación del cuarto microservicio que cumpla con las especificaciones necesarias y creación de los eventos en el track planeado en base de datos (event sourcing).
+- Entrega 5: Implementación de patrón SAGAS.
 
 ## Jeyson Vega
-- Para la entrega 3: Creación de los escenarios de calidad para el atributo de calidad de Disponibilidad y creación de diagramas relacionados.
-  
-- Para entrega 4: Creación de la conexión a las bases de datos descentralizadas para los cuatro microservicios, revisión de que se pueda utilizar y guardar en ellas información.
+- Entrega 3: Creación de los escenarios de calidad para el atributo de calidad de Disponibilidad y creación de diagramas relacionados.
+- Entrega 4: Creación de la conexión a las bases de datos descentralizadas para los cuatro microservicios, revisión de que se pueda utilizar y guardar en ellas información.
+- Entrega 5: Escritura en bases de datos de acuerdo a recepción de eventos para cada micro-servicio y validación del log del event sourcing.
