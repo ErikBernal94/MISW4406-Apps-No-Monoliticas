@@ -8,7 +8,7 @@ from bff.aplicacion.mapeadores import MapeadorContratoDTOJson
 from bff.aplicacion.comandos.registrar_contrato import CrearContrato
 from bff.seedwork.aplicacion.comandos import ejecutar_commando
 
-bp = api.crear_blueprint('contrato', '/contratos')
+bp = api.crear_blueprint('contrato', '/bff/contratos')
 
 @bp.route('/registrar', methods=('POST',))
 def contrator_asincrona():

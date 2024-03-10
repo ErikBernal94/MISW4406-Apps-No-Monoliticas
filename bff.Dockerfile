@@ -6,6 +6,7 @@ COPY requirements.txt ./
 RUN pip install --upgrade --no-cache-dir pip setuptools wheel
 RUN pip install --no-cache-dir wheel
 RUN pip install --no-cache-dir -r requirements.txt
+ENV BROKER_HOST=35.209.26.49
 
 COPY . .
 
