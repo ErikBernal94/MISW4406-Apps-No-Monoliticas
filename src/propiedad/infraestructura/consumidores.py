@@ -6,7 +6,7 @@ import logging
 import traceback
 import aiopulsar
 import asyncio
-from pro.seedwork.infraestructura import utils
+from propiedad.seedwork.infraestructura import utils
 
 
 from propiedad.infraestructura.schema.v1.eventos import EventoPropiedadCreada
