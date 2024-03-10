@@ -25,3 +25,5 @@ pymysql==1.1.0
 cffi==1.16.0
 cryptography==42.0.5
 pycparser==2.21
+fastapi==0.89.1
+aiopulsar-py==0.1.0a0

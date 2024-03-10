@@ -35,7 +35,7 @@ async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, ti
         logging.error('ERROR: Suscribiendose al tópico de eventos!')
         traceback.print_exc()
 
-def suscribirse_a_eventos():
+def suscribirse_a_eventos(app=None):
     cliente = None
     try:
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
