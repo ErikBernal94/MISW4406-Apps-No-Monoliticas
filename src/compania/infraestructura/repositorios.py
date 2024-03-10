@@ -30,8 +30,10 @@ class RepositorioCompaniasSQLite(RepositorioCompanias):
         db.session.add(evento_dto)
 
     def actualizar(self, compania: Compania):
-        # TODO
-        raise NotImplementedError
+        compania_dto = db.session.query(CompaniaDTO).filter_by(id=compania.id).one()
+        compania_dto.correo_electronico = compania.correo_electronico
+        compania_dto.direccion = compania.direccion
+        db.session.commit()
 
     def eliminar(self, compania_id: UUID):
         # TODO

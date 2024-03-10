@@ -1,8 +1,8 @@
 import pulsar
 from pulsar.schema import *
 
-from bff.infraestructura.schema.v1.eventos import EventoCompaniaCreada, CompaniaCreadaPayload, ContratoCreadaPayload, PropiedadCreadaPayload, EventoContratoCreada, EventoPropiedadCreada
-from bff.infraestructura.schema.v1.comandos import ComandoCrearCompania, ComandoCrearCompaniaPayload, ComandoCrearContrato, ComandoCrearContratoPayload
+from bff.infraestructura.schema.v2.eventos import EventoCompaniaCreada, CompaniaCreadaPayload, EventoCompaniaActualizada, CompaniaActualizadaPayload, CompaniaCreadaPayload, ContratoCreadaPayload, PropiedadCreadaPayload, EventoContratoCreada, EventoPropiedadCreada
+from bff.infraestructura.schema.v2.comandos import ComandoCrearCompania, ComandoCrearCompaniaPayload, ComandoCrearContrato, ComandoCrearContratoPayload, ComandoActualizarCompania, ComandoActualizarCompaniaPayload
 from bff.seedwork.infraestructura import utils
 
 import datetime
@@ -35,6 +35,23 @@ class Despachador:
         )
         comando_integracion = ComandoCrearCompania(data=payload)
         self._publicar_mensaje_compania(comando_integracion, topico, AvroSchema(ComandoCrearCompania))
+
+    def publicar_evento_compania_modificada(self, evento, topico):
+        # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del evento
+        payload = CompaniaActualizadaPayload(
+            id_compania=str(evento.id_compania), 
+            correo_electronico=str(evento.correo_electronico), 
+            direccion=str(evento.direccion) 
+        )
+        evento_integracion = EventoCompaniaActualizada(data=payload)
+        self._publicar_mensaje_compania(evento_integracion, topico, AvroSchema(EventoCompaniaActualizada))
+
+    def publicar_comando_compania_modificada(self, comando, topico):
+        # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
+        payload = ComandoActualizarCompaniaPayload(
+        )
+        comando_integracion = ComandoActualizarCompaniaPayload(data=payload)
+        self._publicar_mensaje_compania(comando_integracion, topico, AvroSchema(ComandoActualizarCompaniaPayload))
 
     def _publicar_mensaje_contrato(self, mensaje, topico, schema):
         cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
