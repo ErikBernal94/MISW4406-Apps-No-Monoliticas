@@ -15,4 +15,4 @@ class Contrato(AgregacionRaiz):
         self.tipo_contrato = contrato.tipo_contrato
         self.estado_contrato = contrato.estado_contrato
 
-        self.agregar_evento(ContratoRegistrado(id_contrato=self.id_contrato, estado_contrato=self.estado_contrato, tipo_contrato=self.estado_contrato))
+        self.agregar_evento(ContratoRegistrado(id_contrato=self.id, estado_contrato=self.estado_contrato, tipo_contrato=self.estado_contrato))

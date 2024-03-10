@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
 
-from propiedad.dominio.objetos_valor import TipoPropiedad, DescripcionPropiedad
+from propiedad.dominio.objetos_valor import TipoPropiedad
 from propiedad.dominio.eventos import PropiedadRegistrada
 from propiedad.seedwork.dominio.entidades import AgregacionRaiz, Entidad
 

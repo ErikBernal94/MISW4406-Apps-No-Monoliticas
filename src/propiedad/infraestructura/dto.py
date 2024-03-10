@@ -9,5 +9,5 @@ Base = db.declarative_base()
 class Propiedad(db.Model):
     __tablename__ = "propiedades"
     id = db.Column(db.Integer, primary_key=True)
-    descripcion = db.Column(db.String(255), nullable=True)
-    tipo = db.Column(db.String(255), nullable=True)
+    descripcion_propiedad = db.Column(db.String(255), nullable=True)
+    tipo_propiedad = db.Column(db.String(255), nullable=True)
