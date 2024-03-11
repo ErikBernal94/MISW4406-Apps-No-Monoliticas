@@ -3,8 +3,8 @@ from propiedad.config.api import app_configs, settings
 from propiedad.api.router import router as v1
 
 from propiedad.infraestructura.consumidores import suscribirse_a_topico
-from propiedad.infraestructura.v1.eventos import EventoUsuario, UsuarioValidado, UsuarioDesactivado, UsuarioRegistrado, TipoPropiedad
-from propiedad.infraestructura.v1.comandos import ComandoRegistrarUsuario, ComandoValidarUsuario, ComandoDesactivarUsuario, RegistrarUsuario, ValidarUsuario, DesactivarUsuario
+from propiedad.infraestructura.schema.v1.eventos import EventoPropiedad, PropiedadRegistrada
+from propiedad.infraestructura.schema.v1.comandos import ComandoRegistrarUsuario, ComandoValidarUsuario, ComandoDesactivarUsuario, RegistrarUsuario, ValidarUsuario, DesactivarUsuario
 from propiedad.infraestructura.despachadores import Despachador
 from propiedad.seedwork.infraestructura import utils
 

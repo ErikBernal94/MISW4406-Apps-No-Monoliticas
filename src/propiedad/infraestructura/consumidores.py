@@ -17,6 +17,7 @@ from propiedad.seedwork.infraestructura import utils
 
 async def suscribirse_a_topico(topico: str, suscripcion: str, schema: Record, tipo_consumidor:_pulsar.ConsumerType=_pulsar.ConsumerType.Shared):
     try:
+        print('entro por consumidores de sagas')
         async with aiopulsar.connect(f'pulsar://{utils.broker_host()}:6650') as propiedad:
             async with propiedad.subscribe(
                 topico, 
