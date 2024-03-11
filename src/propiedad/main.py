@@ -4,7 +4,7 @@ from propiedad.api.router import router as v1
 
 from propiedad.infraestructura.consumidores import suscribirse_a_topico
 from propiedad.infraestructura.schema.v1.eventos import EventoPropiedad, PropiedadRegistrada
-from propiedad.infraestructura.schema.v1.comandos import ComandoRegistrarUsuario, ComandoValidarUsuario, ComandoDesactivarUsuario, RegistrarUsuario, ValidarUsuario, DesactivarUsuario
+from propiedad.infraestructura.schema.v1.comandos import ComandoRegistrarPropiedad, RegistrarPropiedad
 from propiedad.infraestructura.despachadores import Despachador
 from propiedad.seedwork.infraestructura import utils
 
@@ -20,14 +20,10 @@ tasks = list()
 @app.on_event("startup")
 async def app_startup():
     global tasks
-    task1 = asyncio.ensure_future(suscribirse_a_topico("evento-usuarios", "sub-propiedad", EventoUsuario))
-    task2 = asyncio.ensure_future(suscribirse_a_topico("comando-registrar-usuario", "sub-com-registrar-usuario", ComandoRegistrarUsuario))
-    task3 = asyncio.ensure_future(suscribirse_a_topico("comando-validar-usuario", "sub-com-validar-usuario", ComandoValidarUsuario))
-    task4 = asyncio.ensure_future(suscribirse_a_topico("comando-desactivar-usuario", "sub-com-desactivar-usuario", ComandoDesactivarUsuario))
+    task1 = asyncio.ensure_future(suscribirse_a_topico("evento-propiedades", "sub-propiedad", EventoPropiedad))
+    task2 = asyncio.ensure_future(suscribirse_a_topico("comando-registrar-propiedad", "sub-com-registrar-propiedad", ComandoRegistrarPropiedad))
     tasks.append(task1)
-    tasks.append(task2)
-    tasks.append(task3)
-    tasks.append(task4)
+    tasks.append(task2)   
 
 @app.on_event("shutdown")
 def shutdown_event():
@@ -35,104 +31,41 @@ def shutdown_event():
     for task in tasks:
         task.cancel()
 
-@app.get("/prueba-usuario-validado", include_in_schema=False)
-async def prueba_usuario_validado() -> dict[str, str]:
-    payload = UsuarioValidado(id = "1232321321", fecha_validacion = utils.time_millis())
-    evento = EventoUsuario(
-        time=utils.time_millis(),
-        ingestion=utils.time_millis(),
-        datacontenttype=UsuarioValidado.__name__,
-        usuario_validado = payload
-    )
-    despachador = Despachador()
-    despachador.publicar_mensaje(evento, "evento-usuarios")
-    return {"status": "ok"}
-
-@app.get("/prueba-usuario-registrado", include_in_schema=False)
+@app.get("/propiedad-registrada-sagas", include_in_schema=False)
 async def prueba_usuario_registrado() -> dict[str, str]:
-    payload = UsuarioRegistrado(
-        id = "1232321321", 
-        nombres = "Juan",
-        apellidos = "Urrego",
-        email = "js.urrego110@aeroalpes.net",
-        tipo_propiedad = TipoPropiedad.natural,
+    payload = PropiedadRegistrada(
+        id_propiedad = "1", 
+        descripcion_propiedad = "descripcion_propiedad",
+        tipo_propiedad = "tipo_propiedad",
         fecha_creacion = utils.time_millis())
 
-    evento = EventoUsuario(
+    evento = EventoPropiedad(
         time=utils.time_millis(),
         ingestion=utils.time_millis(),
-        datacontenttype=UsuarioRegistrado.__name__,
-        usuario_registrado = payload
+        datacontenttype=PropiedadRegistrada.__name__,
+        propiedad_registrada = payload
     )
     despachador = Despachador()
-    despachador.publicar_mensaje(evento, "evento-usuarios")
+    despachador.publicar_mensaje(evento, "evento-propiedades")
     return {"status": "ok"}
 
-@app.get("/prueba-usuario-desactivado", include_in_schema=False)
-async def prueba_usuario_desactivado() -> dict[str, str]:
-    payload = UsuarioDesactivado(id = "1232321321", fecha_validacion = utils.time_millis())
-    evento = EventoUsuario(
-        time=utils.time_millis(),
-        ingestion=utils.time_millis(),
-        datacontenttype=UsuarioDesactivado.__name__,
-        usuario_desactivado = payload
-    )
-    despachador = Despachador()
-    despachador.publicar_mensaje(evento, "evento-usuarios")
-    return {"status": "ok"}
-
-@app.get("/prueba-registrar-usuario", include_in_schema=False)
+@app.get("/registrar-propiedad-sagas", include_in_schema=False)
 async def prueba_registrar_usuario() -> dict[str, str]:
-    payload = RegistrarUsuario(
-        nombres = "Juan",
-        apellidos = "Urrego",
-        email = "js.urrego110@aeroalpes.net",
-        tipo_propiedad = TipoPropiedad.natural,
+    payload = RegistrarPropiedad(
+        id_propiedad = "1", 
+        descripcion_propiedad = "descripcion_propiedad",
+        tipo_propiedad = "tipo_propiedad",
         fecha_creacion = utils.time_millis()
     )
 
-    comando = ComandoRegistrarUsuario(
+    comando = ComandoRegistrarPropiedad(
         time=utils.time_millis(),
         ingestion=utils.time_millis(),
-        datacontenttype=RegistrarUsuario.__name__,
+        datacontenttype=RegistrarPropiedad.__name__,
         data = payload
     )
     despachador = Despachador()
-    despachador.publicar_mensaje(comando, "comando-registrar-usuario")
-    return {"status": "ok"}
-
-@app.get("/prueba-validar-usuario", include_in_schema=False)
-async def prueba_validar_usuario() -> dict[str, str]:
-    payload = ValidarUsuario(
-        id = "1232321321", 
-        fecha_validacion = utils.time_millis()
-    )
-
-    comando = ComandoValidarUsuario(
-        time=utils.time_millis(),
-        ingestion=utils.time_millis(),
-        datacontenttype=ValidarUsuario.__name__,
-        data = payload
-    )
-    despachador = Despachador()
-    despachador.publicar_mensaje(comando, "comando-validar-usuario")
-    return {"status": "ok"}
-
-@app.get("/prueba-desactivar-usuario", include_in_schema=False)
-async def prueba_desactivar_usuario() -> dict[str, str]:
-    payload = DesactivarUsuario(
-        id = "1232321321", 
-        fecha_validacion = utils.time_millis()
-    )
-
-    comando = ComandoDesactivarUsuario(
-        time=utils.time_millis(),
-        ingestion=utils.time_millis(),
-        datacontenttype=DesactivarUsuario.__name__,
-        data = payload
-    )
-    despachador = Despachador()
-    despachador.publicar_mensaje(comando, "comando-desactivar-usuario")
+    despachador.publicar_mensaje(comando, "comando-registrar-propiedad")
     return {"status": "ok"}
 
 @app.get("/health", include_in_schema=False)
