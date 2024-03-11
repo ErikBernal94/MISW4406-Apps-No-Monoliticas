@@ -8,7 +8,7 @@ from bff.aplicacion.mapeadores import MapeadorCompaniaDTOJson
 from bff.aplicacion.comandos.registrar_compania import CrearCompania
 from bff.seedwork.aplicacion.comandos import ejecutar_commando
 
-bp = api.crear_blueprint('compania', '/companias')
+bp = api.crear_blueprint('compania', '/bff/companias')
 
 @bp.route('/registrar', methods=('POST',))
 def companiar_asincrona():

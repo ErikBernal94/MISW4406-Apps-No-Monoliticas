@@ -8,7 +8,7 @@ from bff.aplicacion.mapeadores import MapeadorPropiedadDTOJson
 from bff.aplicacion.comandos.registrar_propiedad import CrearPropiedad
 from bff.seedwork.aplicacion.comandos import ejecutar_commando
 
-bp = api.crear_blueprint('propiedad', '/propiedades')
+bp = api.crear_blueprint('propiedad', '/bff/propiedades')
 
 @bp.route('/registrar', methods=('POST',))
 def propiedad_asincrona():
