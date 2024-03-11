@@ -7,7 +7,7 @@ import traceback
 
 from datetime import datetime
 
-from compania.infraestructura.proyecciones import ProyeccionCompaniasLista, ProyeccionCompaniasTotales
+from compania.infraestructura.proyecciones import ProyeccionCompaniasLista, ProyeccionCompaniasModificar
 from compania.seedwork.infraestructura.proyecciones import ejecutar_proyeccion
 from compania.infraestructura.schema.v1.eventos import EventoCompaniaCreada
 from compania.infraestructura.schema.v1.comandos import ComandoCrearCompania
@@ -25,10 +25,14 @@ def suscribirse_a_eventos(app=None):
             fecha_creacion = utils.current_milli_time()
             fecha_actualizacion = utils.current_milli_time()
             print(f'Evento recibido: {datos}')
-
+            proyeccion = None
+            if datos.tipo_evento or datos.tipo_evento == 1:
+                ProyeccionCompaniasLista(datos.id_compania, datos.correo_electronico, datos.direccion, fecha_creacion, fecha_actualizacion)
+            elif datos.tipo_evento == 2:
+                ProyeccionCompaniasModificar(datos.id_compania, datos.correo_electronico, datos.direccion, fecha_creacion, fecha_actualizacion)
             # TODO Identificar el tipo de CRUD del evento: Creacion, actualización o eliminación.
             # ejecutar_proyeccion(ProyeccionCompaniasTotales(fecha_creacion, ProyeccionCompaniasTotales.ADD), app=app)
-            ejecutar_proyeccion(ProyeccionCompaniasLista(datos.id_compania, datos.correo_electronico, datos.direccion, fecha_creacion, fecha_actualizacion), app=app)
+            ejecutar_proyeccion(proyeccion, app=app)
 
             consumidor.acknowledge(mensaje)     
 
