@@ -60,7 +60,7 @@ class Transaccion(Paso):
     exitosa: bool
 
 class CoordinadorCoreografia(CoordinadorSaga, ABC):
-
+    pass
 
 class CoordinadorOrquestacion(CoordinadorSaga, ABC):
     pasos: list[Paso]

@@ -1,3 +1,9 @@
 
 class RegistrarPropiedad():
     ...
+
+class RegistrarPropiedadRevertida():
+    ...
+
+class RegistrarPropiedadFallida():
+    ...

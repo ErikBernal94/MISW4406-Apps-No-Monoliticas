@@ -3,7 +3,7 @@ from propiedad.seedwork.aplicacion.comandos import Comando
 from propiedad.seedwork.dominio.eventos import EventoDominio
 
 from propiedad.modulos.sagas.aplicacion.comandos.propiedad import RegistrarPropiedad, RegistrarPropiedadRevertida, RegistrarPropiedadFallida
-from propiedad.modulos.sagas.aplicacion.dominio.eventos.propiedad import PropiedadCreada, RegistroPropiedadFallida, RegistroPropiedadRevertida
+from propiedad.modulos.sagas.dominio.eventos.propiedad import PropiedadCreada, RegistroPropiedadFallida, RegistroPropiedadRevertida
 
 
 class CoordinadorPropiedades(CoordinadorOrquestacion):

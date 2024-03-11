@@ -1,7 +1,7 @@
 from pulsar.schema import *
 from dataclasses import dataclass, field
 from propiedad.seedwork.infraestructura.schema.v1.comandos import (ComandoIntegracion)
-from cliente.seedwork.infraestructura.utils import time_millis
+from propiedad.seedwork.infraestructura.utils import time_millis
 
 import uuid
 

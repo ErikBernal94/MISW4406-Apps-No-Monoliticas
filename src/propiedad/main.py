@@ -3,7 +3,6 @@ from propiedad.config.api import app_configs, settings
 from propiedad.api.router import router as v1
 
 from propiedad.infraestructura.consumidores import suscribirse_a_topico
-from propiedad.infraestructura.schema.v1.eventos import EventoPropiedad, PropiedadRegistrada
 from propiedad.infraestructura.schema.v1.comandos import ComandoRegistrarPropiedad, RegistrarPropiedad
 from propiedad.infraestructura.despachadores import Despachador
 from propiedad.seedwork.infraestructura import utils
@@ -32,7 +31,7 @@ def shutdown_event():
         task.cancel()
 
 @app.get("/propiedad-registrada-sagas", include_in_schema=False)
-async def prueba_usuario_registrado() -> dict[str, str]:
+async def propiedad_registrada() -> dict[str, str]:
     payload = PropiedadRegistrada(
         id_propiedad = "1", 
         descripcion_propiedad = "descripcion_propiedad",
@@ -50,7 +49,7 @@ async def prueba_usuario_registrado() -> dict[str, str]:
     return {"status": "ok"}
 
 @app.get("/registrar-propiedad-sagas", include_in_schema=False)
-async def prueba_registrar_usuario() -> dict[str, str]:
+async def registrar_propiedad() -> dict[str, str]:
     payload = RegistrarPropiedad(
         id_propiedad = "1", 
         descripcion_propiedad = "descripcion_propiedad",
