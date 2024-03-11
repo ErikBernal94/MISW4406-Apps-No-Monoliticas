@@ -42,9 +42,9 @@ class RegistrarPropiedadSagaHandler(CrearPropiedadBaseHandler):
                 descripcion_propiedad= comando.descripcion,
                 tipo_propiedad=comando.tipo,
                 id_propiedad=comando.id)
-        
+        print('RegistrarPropiedadSagaHandler: ', comando.id)
         despachador = Despachador()
-        despachador.publicar_comando_propiedad(propiedad_dto, 'comando-registrar-propiedad')
+        despachador.f(propiedad_dto, 'comando-registrar-propiedad')
 
 
 @comando.register(RegistrarPropiedadSagas)

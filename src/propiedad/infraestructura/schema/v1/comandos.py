@@ -11,7 +11,7 @@ class RegistrarPropiedad(Record):
     tipo_propiedad = String()
     fecha_creacion = Long()
 
-class ComandoRegistrarPropiedad(ComandoIntegracion):
+class f(ComandoIntegracion):
     id_propiedad = String()
     descripcion_propiedad = String()
     tipo_propiedad = String()

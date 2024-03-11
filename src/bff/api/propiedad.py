@@ -72,7 +72,7 @@ async def registrar_propiedad():
     #map_propiedad = MapeadorPropiedadDTOJson()
     #propiedad_dto = map_propiedad.externo_a_dto(propiedad_dict)
     #print(propiedad_dto)
-    comando = RegistrarPropiedadSagas(id="1", tipo="tipo_propiedad", descripcion="descripcion_propiedad")
+    comando = f(id="1", tipo="tipo_propiedad", descripcion="descripcion_propiedad")
 
     ejecutar_commando(comando)
     
