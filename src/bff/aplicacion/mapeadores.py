@@ -59,7 +59,7 @@ class MapeadorContrato(RepMap):
 
 class MapeadorPropiedadDTOJson(AppMap):
     def externo_a_dto(self, externo: dict) -> PropiedadDTO:
-        propiedad_dto = PropiedadDTO(tipo_propiedad=externo['tipo_propiedad'], descripcion_propiedad=externo['descripcion_propiedad'], id_propiedad=externo['id'])
+        propiedad_dto = PropiedadDTO(tipo_propiedad=externo['tipo_propiedad'], descripcion_propiedad=externo['descripcion_propiedad'], id_propiedad=externo['id_propiedad'])
         return propiedad_dto
 
     def dto_a_externo(self, dto: PropiedadDTO) -> dict:

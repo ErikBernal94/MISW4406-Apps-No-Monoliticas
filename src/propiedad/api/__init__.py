@@ -59,6 +59,10 @@ def create_app(configuracion={}):
         db.create_all()
         if not app.config.get('TESTING'):
             comenzar_consumidor(app)
+        
+        from propiedad.modulos.sagas.aplicacion.coordinadores.saga_propiedades import CoordinadorPropiedades
+        CoordinadorPropiedades()
+
 
     @app.route("/spec")
     def spec():

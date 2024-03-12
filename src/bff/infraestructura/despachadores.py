@@ -2,7 +2,7 @@ import pulsar
 from pulsar.schema import *
 
 from bff.infraestructura.schema.v1.eventos import EventoCompaniaCreada, CompaniaCreadaPayload, ContratoCreadaPayload, PropiedadCreadaPayload, EventoContratoCreada, EventoPropiedadCreada
-from bff.infraestructura.schema.v1.comandos import ComandoCrearCompania, ComandoCrearCompaniaPayload, ComandoCrearContrato, ComandoCrearContratoPayload
+from bff.infraestructura.schema.v1.comandos import ComandoCrearCompania, ComandoCrearCompaniaPayload, ComandoCrearContrato, ComandoCrearContratoPayload, ComandoCrearPropiedadPayload, ComandoCrearPropiedad
 from bff.seedwork.infraestructura import utils
 
 import datetime
@@ -76,9 +76,10 @@ class Despachador:
             descripcion_propiedad=str(evento.descripcion_propiedad)
         )
         evento_integracion = EventoPropiedadCreada(data=payload)
-        self._publicar_mensaje_propiedad(evento_integracion, topico, AvroSchema(EventoPropiedadCreada))
+        self.f(evento_integracion, topico, AvroSchema(EventoPropiedadCreada))
 
     def publicar_comando_propiedad(self, comando, topico):
+        print('publicar_comando_propiedad', comando, topico)
         # TODO Debe existir un forma de crear el Payload en Avro con base al tipo del comando
         payload = ComandoCrearPropiedadPayload(
         )
